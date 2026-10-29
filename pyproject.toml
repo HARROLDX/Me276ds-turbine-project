@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools==80.9.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "me276ds-gas-turbine-nox"
+version = "0.1.0"
+description = "ME276DS: chronological NOx regression, feature selection and regularization"
+requires-python = ">=3.11,<3.14"
+dependencies = [
+  "numpy==2.2.6", "pandas==2.3.3", "scipy==1.16.3",
+  "scikit-learn==1.7.2", "matplotlib==3.10.7", "joblib==1.5.2",
+  "threadpoolctl==3.6.0"
+]
+
+[project.optional-dependencies]
+dev = ["pytest==8.4.2", "ruff==0.14.3"]
+
+[project.scripts]
+nox = "nox_project.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100

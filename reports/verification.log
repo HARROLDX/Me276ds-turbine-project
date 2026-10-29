@@ -1,0 +1,213 @@
+All checks passed!
+................                                                         [100%]
+16 passed in 4.41s
+{
+  "downloaded": [],
+  "status": "all checksums match"
+}
+{
+  "status": "passed",
+  "training_performed": false,
+  "years": [
+    {
+      "year": 2011,
+      "rows": 7411,
+      "columns": 11,
+      "missing": 0,
+      "duplicate_measurement_rows": 0
+    },
+    {
+      "year": 2012,
+      "rows": 7628,
+      "columns": 11,
+      "missing": 0,
+      "duplicate_measurement_rows": 0
+    },
+    {
+      "year": 2013,
+      "rows": 7152,
+      "columns": 11,
+      "missing": 0,
+      "duplicate_measurement_rows": 0
+    },
+    {
+      "year": 2014,
+      "rows": 7158,
+      "columns": 11,
+      "missing": 0,
+      "duplicate_measurement_rows": 7
+    },
+    {
+      "year": 2015,
+      "rows": 7384,
+      "columns": 11,
+      "missing": 0,
+      "duplicate_measurement_rows": 0
+    }
+  ],
+  "total_rows": 36733,
+  "features": [
+    "AT",
+    "AP",
+    "AH",
+    "AFDP",
+    "GTEP",
+    "TIT",
+    "TAT",
+    "TEY",
+    "CDP"
+  ],
+  "target": "NOX",
+  "excluded": [
+    "CO",
+    "year",
+    "row_id"
+  ],
+  "training_summary": {
+    "AT": {
+      "count": 29349.0,
+      "mean": 17.835369480050424,
+      "std": 7.2702477214617325,
+      "min": 0.28985,
+      "25%": 11.972,
+      "50%": 17.888,
+      "75%": 23.661,
+      "max": 34.929
+    },
+    "AP": {
+      "count": 29349.0,
+      "mean": 1012.7081365634264,
+      "std": 6.298584154776329,
+      "min": 985.85,
+      "25%": 1008.6,
+      "50%": 1012.3,
+      "75%": 1016.6,
+      "max": 1034.2
+    },
+    "AH": {
+      "count": 29349.0,
+      "mean": 80.18658915124877,
+      "std": 13.742408045384625,
+      "min": 25.987,
+      "25%": 71.069,
+      "50%": 83.231,
+      "75%": 91.02,
+      "max": 100.2
+    },
+    "AFDP": {
+      "count": 29349.0,
+      "mean": 4.007690132542846,
+      "std": 0.7889299157894044,
+      "min": 2.0874,
+      "25%": 3.4889,
+      "50%": 4.0119,
+      "75%": 4.4412,
+      "max": 7.6106
+    },
+    "GTEP": {
+      "count": 29349.0,
+      "mean": 25.42131241268868,
+      "std": 4.110938370556015,
+      "min": 17.878,
+      "25%": 23.114,
+      "50%": 25.079,
+      "75%": 26.984,
+      "max": 37.402
+    },
+    "TIT": {
+      "count": 29349.0,
+      "mean": 1082.045340556748,
+      "std": 16.874589304207472,
+      "min": 1000.8,
+      "25%": 1072.2,
+      "50%": 1086.6,
+      "75%": 1095.1,
+      "max": 1100.9
+    },
+    "TAT": {
+      "count": 29349.0,
+      "mean": 546.0367545742615,
+      "std": 7.137499757838475,
+      "min": 511.04,
+      "25%": 544.72,
+      "50%": 549.9,
+      "75%": 550.05,
+      "max": 550.61
+    },
+    "TEY": {
+      "count": 29349.0,
+      "mean": 133.38388360761866,
+      "std": 15.4722711167154,
+      "min": 100.03,
+      "25%": 123.74,
+      "50%": 133.75,
+      "75%": 139.59,
+      "max": 174.61
+    },
+    "CDP": {
+      "count": 29349.0,
+      "mean": 12.051342107056458,
+      "std": 1.076258769462547,
+      "min": 9.8518,
+      "25%": 11.423,
+      "50%": 11.968,
+      "75%": 12.474,
+      "max": 15.081
+    },
+    "CO": {
+      "count": 29349.0,
+      "mean": 2.181882277669086,
+      "std": 2.2294635826166305,
+      "min": 0.00038751,
+      "25%": 1.0822,
+      "50%": 1.5619,
+      "75%": 2.3897,
+      "max": 44.103
+    },
+    "NOX": {
+      "count": 29349.0,
+      "mean": 66.65231244676139,
+      "std": 11.41621665081747,
+      "min": 27.183,
+      "25%": 59.298,
+      "50%": 64.964,
+      "75%": 72.674,
+      "max": 119.91
+    }
+  },
+  "note": "No test target distributions or model scores inspected. No rows removed."
+}
+{
+  "training_performed": false,
+  "split": "2011-2014 train; 2015 first floor(N/2) validation; remaining test",
+  "rows": {
+    "train": 29349,
+    "validation": 3692,
+    "test": 3692
+  },
+  "features": [
+    "AT",
+    "AP",
+    "AH",
+    "AFDP",
+    "GTEP",
+    "TIT",
+    "TAT",
+    "TEY",
+    "CDP"
+  ],
+  "candidates": {
+    "ols": 1,
+    "random_forest": 4,
+    "gradient_boosting": 8,
+    "mlp": 4,
+    "ridge": 6,
+    "lasso": 5
+  },
+  "forward_selection_candidate_fits": 45,
+  "total_development_fits": 73,
+  "final_refits": 7,
+  "primary_metric": "rmse",
+  "device": "CPU",
+  "parallelism": "one fit, one BLAS thread, RF n_jobs=1"
+}
