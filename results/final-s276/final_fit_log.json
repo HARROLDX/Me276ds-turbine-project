@@ -1,0 +1,30 @@
+{
+  "ols": {
+    "seconds": 0.033248495077714324,
+    "warnings": []
+  },
+  "random_forest": {
+    "seconds": 33.66689736908302,
+    "warnings": []
+  },
+  "gradient_boosting": {
+    "seconds": 6.433458072133362,
+    "warnings": []
+  },
+  "mlp": {
+    "seconds": 7.6000970581080765,
+    "warnings": []
+  },
+  "ridge": {
+    "seconds": 0.010112589923664927,
+    "warnings": []
+  },
+  "lasso": {
+    "seconds": 0.47504161088727415,
+    "warnings": []
+  },
+  "forward_ols": {
+    "seconds": 0.01311054709367454,
+    "warnings": []
+  }
+}

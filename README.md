@@ -1,99 +1,75 @@
-# ME276DS — Gas Turbine NOx Emission Prediction
+# 燃气轮机 NOₓ 排放预测
 
-Reproducible preparation for the Fall 2026 group final project. **Code and data are ready; no models have been trained and no prediction results are claimed.**
+**ME276DS · 276ds-group3**
+Jiawei Xia · Rongqian Zhang · Bowen Xie · Zhuoqun Yang
 
-We estimate hourly NOx concentration for power-plant operators and environmental monitoring engineers. The question is which course-relevant model balances prediction error, input count, and complexity. This is an analytical soft-sensor study, not a replacement for certified emissions monitoring or a causal study of emissions control.
+[中文数学与分析报告（PDF）](website/report.pdf) · [公开交互网站](https://me276ds-turbine-nox.vigilantdrape.chatgpt.site) · [课堂展示](https://me276ds-turbine-nox.vigilantdrape.chatgpt.site/slides.html) · [完整结果表](results/final-s276/test_metrics.csv)
 
-## Scope and course alignment
+电厂工程师能从温度、压力、湿度和发电量等九项同期读数，把一小时的 NOₓ 浓度估计到多准？我们以土耳其西北部一座电厂的 36,733 条小时记录比较四种回归方法，再考察减少传感器和限制系数大小是否有益。所有误差均按原浓度单位 mg/m³ 计算。
 
-The instructor asks for a tabular dataset, a real-world narrative, and comparison of modeling techniques learned in class. This project has 36,733 records and 9 predictors, satisfying the suggested minimums of 500 samples and 8 inputs. The raw CSVs total 2,778,809 bytes (~2.78 MB). The research plan defines three connected experiments:
+## 主要结果
 
-| Experiment | Implemented methods | Question |
-|---|---|---|
-| 1: Main comparison | OLS, Random Forest, Gradient Boosting, MLP | How much does nonlinear modeling improve prediction? |
-| 2: Feature selection | Greedy forward OLS selection; all-9-input OLS reference | Can a smaller input subset retain accuracy? |
-| 3: Regularization | OLS, Ridge (L2), Lasso (L1) | How do penalties affect errors and coefficients? |
+| 主模型 | 验证 RMSE | 测试 MAE | 测试 RMSE | 测试 R² |
+|---|---:|---:|---:|---:|
+| 线性回归 | **8.190** | 9.004 | 10.799 | −0.534 |
+| 随机森林 | 9.934 | 10.481 | 12.343 | −1.005 |
+| 梯度提升 | 8.609 | 10.095 | 11.434 | −0.720 |
+| 多层感知机 MLP | 8.304 | **8.039** | **9.831** | **−0.272** |
 
-See [requirements and course mapping](docs/course_alignment.md) and the [original project plan](docs/ME276DS_Gas_Turbine_NOx_Project_Plan.pdf). Classification/logistic regression, CNN/RNN, SVM, and generative models are not added merely because they appear in the syllabus; the target is continuous and the approved scope is focused.
+**选型与泛化。** 在测试前，验证误差最低的是线性回归。进入随后 3,692 条测试记录，MLP 的误差最低，四种主模型的 R² 均为负。测试均值这个事后参照的 RMSE 为 8.717，可在预测时获得的训练均值常数基线则为 14.063。
 
-## Dataset and the updated split
+**减少输入。** 前向 OLS 每步选取验证误差最小的新增变量，再选择处于路径最佳 RMSE 的 1% 范围内的最小子集。去掉 CDP 后共 8 个输入，测试 MAE / RMSE / R² 为 8.878 / 10.658 / −0.495。
 
-Source: [UCI dataset 551](https://archive.ics.uci.edu/dataset/551/gas+turbine+co+and+nox+emission+data+set), [DOI 10.24432/C5WC95](https://doi.org/10.24432/C5WC95), **CC BY 4.0**. Five original CSVs are included in `data/raw/`, with source URL, retrieval date, sizes, counts and SHA-256 hashes in `data/manifest.json`. No CSV values were modified. Attribution and the variable dictionary are in [data/README.md](data/README.md).
+**正则化。** Ridge（α = 10）与 Lasso（α = 0.001）测试 RMSE 分别为 10.884 与 10.799。Lasso 选中的模型保留九个非零斜率。
 
-Predictors: `AT, AP, AH, AFDP, GTEP, TIT, TAT, TEY, CDP`. Target: `NOX` (mg/m³). `CO`, year, and row ID are excluded from model inputs. Year is inferred from the filename. The released rows are chronological but do not contain timestamps: a row index is **not** an exact date or a guaranteed uninterrupted hourly timeline.
+**使用边界。** 线性模型整体平均高估 6.23 mg/m³，但测试集中高于训练浓度第 90 百分位的 91 条记录全部低估，平均低估 20.38 mg/m³。现场峰值监测需要独立检验。
 
-**User revision on 2026-10-29 takes precedence over the original PDF:**
+## 数据与评分协议
 
-| Partition | Records | Rows |
-|---|---|---:|
-| Training | All 2011–2014 records | 29,349 |
-| Validation | First 3,692 records of 2015, original order | 3,692 |
-| Test | Last 3,692 records of 2015, original order | 3,692 |
+五份原始年度 CSV 来自 [UCI 551](https://doi.org/10.24432/C5WC95)，许可为 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)。[字段、单位及来源](data/README.md) · [文件哈希](data/manifest.json)。输入为 AT、AP、AH、AFDP、GTEP、TIT、TAT、TEY、CDP，输出为 NOX；排除 CO 和年份。原文件按时间排序，精确时间戳未公开。
 
-Within the CSV, these correspond to data rows 1–3,692 and 3,693–7,384 (excluding the header). All model fitting, including final refitting, uses **2011–2014 only**. Validation selects hyperparameters and features; test is used only after choices are frozen. The two 2015 blocks never overlap. This differs from the original plan/UCI paper protocol (2011–2013 development, 2014–2015 test), so our eventual scores must not be presented as a reproduction of that protocol.
+| 分区 | 样本 | 用途 |
+|---|---:|---|
+| 2011–2014 全部 | 29,349 | 学习模型参数、标准化参数以及最终重拟合 |
+| 2015 原文件前半 | 3,692 | 选择超参数和特征 |
+| 2015 原文件后半 | 3,692 | 冻结设置后统一评分 |
 
-## Install and verify without training
+此划分遵循团队 10 月 29 日的修订。原方案及 UCI 建议的「前三年开发、后两年测试」适用于不同协议。[课程与方案对应表](docs/course_alignment.md)
 
-Python 3.11–3.13; verified environment is Python 3.12 on the A6000 host. The implementation uses CPU scikit-learn; an A6000 GPU is not needed for this tabular project. Each fit uses one CPU thread and Random Forest uses `n_jobs=1` to avoid consuming shared resources unexpectedly.
+## 如何核对结果
+
+- [最终数学与分析报告](website/report.pdf) 包含公式、方法、选择标准、预测图、参数与误差诊断。
+- [逐条预测](results/final-s276/test_predictions.csv) 保存全部七个配置在同一批测试行上的输出。行编号与原始 CSV 一一对应。
+- [独立复算与分组统计](results/final-s276/metrics_summary.json)、[特征选择路径](results/final-s276/forward_path.json) 和 [冻结配置](results/final-s276/selection.json) 支撑报告和网站中的数字。
+- [运行环境及训练版本](results/final-s276/provenance.json)、[候选模型日志](results/final-s276/development.jsonl) 与 [最终拟合记录](results/final-s276/final_fit_log.json) 保存完整的实验依据。
+- [网站源码](website/) 可直接通过静态 HTTP 服务器运行。报告可打印源在 [reports/final-report.html](reports/final-report.html)，用 Chromium 打印为 A4 并开启背景图形即可重新导出。
+
+## 在新环境复现
+
+正式实验在 A6000 主机上使用单线程 CPU、Python 3.12.3、scikit-learn 1.7.2 和种子 276 完成。训练实现版本为 `051ef77`，依赖版本见 `requirements-lock.txt`。
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-python -m pip install -e '.[dev]'
-bash scripts/check_no_training.sh
-```
-
-The check script compiles/imports code, runs lint and tests, verifies data hashes/schema/counts, records a training-only descriptive summary, and prints the experiment plan. **It never fits a model.** Test figures use synthetic saved arrays, never learned predictions. On systems lacking `ensurepip`, install the OS venv support or bootstrap pip inside the isolated venv; do not alter a shared Python environment. `requirements-lock.txt` records the verified Linux environment, including transitive dependencies; for exact recreation, install that file and then `pip install --no-deps -e .`.
-
-Individual preparation commands, from the repository root:
-
-```bash
-nox download                     # offline checksum verification if data already exists
-nox audit --output reports/data_audit.json
+python -m pip install -r requirements-lock.txt
+python -m pip install --no-deps -e .
+nox download
 nox dry-run
 ```
 
-`download` restores missing CSVs from the pinned archive and rejects changed existing files. `audit` checks all files structurally, but descriptive statistics are calculated on training years only. `dry-run` reports **73 development fits** (28 model-grid candidates + 45 forward-selection candidates) and 7 final refits; it does not execute them.
-
-## Future experiments — do not run during preparation
-
-Training is an explicit opt-in. The following commands are documented for a later authorized run and **have not been executed**:
+重新训练应使用新的运行目录。已存档的测试结果用于报告，复现实验应保持原协议。
 
 ```bash
-source .venv/bin/activate
-nox develop --run runs/main-s276 --execute
-# Inspect validation results and convergence warnings before opening the test set.
-nox evaluate --run runs/main-s276 --execute
-nox report --run runs/main-s276
+nox develop --run runs/reproduce-s276 --execute
+nox evaluate --run runs/reproduce-s276 --execute
+nox report --run runs/reproduce-s276
 ```
 
-Without `--execute`, `develop` and `evaluate` fail before fitting. Development refuses an existing run directory. Final evaluation verifies the frozen selection, code fingerprint, data manifest and dependency versions, then creates an exclusive evaluation marker. It refuses a second evaluation of the same run. This protects against accidental reuse; it cannot prevent deliberate repeated testing in different run directories. After inspecting test results, do not tune models on them. If a run fails, retain its partial logs and marker, diagnose the failure and document any recovery instead of deleting the marker casually. Model files use joblib and should only be loaded from trusted runs.
+如只需核对分数和重新制图，可运行以下命令。中文科研图需要系统已安装思源黑体、Noto Sans CJK SC 或脚本支持的其他中文字体。
 
-## Modeling choices
-
-- **Selection metric:** validation RMSE, to penalize occasional large emission-estimation errors. Report MAE for typical absolute error and R² for explained variation, alongside RMSE. Errors are in original mg/m³. No regulatory exceedance threshold has been supplied, so this is not an exceedance classifier.
-- **Scaling:** per-fit `StandardScaler` pipelines for linear/penalized models and MLP. MLP also standardizes the target inside `TransformedTargetRegressor`, with inverse transformation before scoring. Tree ensembles use raw inputs. No preprocessing is fitted before splitting.
-- **MLP:** Adam, ReLU, seed 276; no random early-stopping validation split. Architecture and L2 strength are selected against the chronological validation block; maximum 500 iterations. Convergence warnings are saved for review, not suppressed as evidence of successful convergence.
-- **Forward selection:** start empty, add the remaining feature with lowest validation RMSE, evaluate subset sizes 1–9, choose the smallest subset within 1% of the best validation RMSE. This predeclared tolerance is a simplicity preference, not a significance test. Repeated adaptive reuse makes validation scores optimistic; only the untouched test block assesses generalization. This study applies to OLS, not claims of universally optimal sensors for all models.
-- **Regularization:** alpha grids are explicit in `configs/experiments.json`. Standardized-input coefficients are saved; Ridge and Lasso objectives use different numerical alpha scales, so equal alpha values are not directly equivalent strengths.
-- **Fairness:** shared split, predictors, seed and metrics; a mean-only baseline is not substituted for the planned linear baseline. Record fit time and number of inputs with accuracy. No outlier deletion, random row split, target transformation fitted on all years, or timestamp reconstruction.
-
-## Outputs and project layout
-
-```text
-src/nox_project/    data, models, experiments, metrics, reporting, CLI
-configs/           declared hyperparameter grids and seed
-data/raw/          five original UCI CSVs (tracked in Git)
-data/manifest.json pinned checksums and provenance
-docs/              course requirements, original plan, methodology
-tests/             data/split/guard/metric/report checks without training
-reports/           preparation audit and verification record only
-runs/              future experiments, models and figures (Git-ignored)
-Agent_doc/         project maintenance and handoff notes
+```bash
+python scripts/build_figures.py results/final-s276 runs/verified-figures --raw data/raw
+python -m http.server 8000 --directory website
 ```
 
-Future run outputs include candidate training/validation metrics and fit warnings, a forward-selection path, frozen choices, environment/Git provenance, seven serialized estimators, test predictions with original row IDs, MAE/RMSE/R², three experiment tables, prediction/residual plots, feature-count and penalty curves, and linear coefficients. They are **not present yet**. See [methodology and report checklist](docs/methodology.md) for interpretation limits and the remaining course deliverables.
-
-## Current status
-
-Prepared code, raw data, reproducible environment, and non-training checks. No training, tuning, final evaluation, performance conclusions, final report or presentation has been completed. The instructor's mid-November GSI meeting, RRR-week report and finals-week presentation remain course milestones; exact report/presentation deadlines are not invented here.
+正式运行的模型文件与原图保存在 A6000 项目目录 `runs/final-s276/`。Git 仓库包含数据、完整预测、实验记录、图表脚本、报告与网站。

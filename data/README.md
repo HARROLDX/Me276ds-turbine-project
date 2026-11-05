@@ -1,27 +1,21 @@
-# Dataset attribution and dictionary
+# 原始数据与许可
 
-Gas Turbine CO and NOx Emission Data Set [Dataset]. (2019). UCI Machine Learning Repository. https://doi.org/10.24432/C5WC95.
+Gas Turbine CO and NOx Emission Data Set [Dataset]. (2019). UCI Machine Learning Repository. [DOI 10.24432/C5WC95](https://doi.org/10.24432/C5WC95)。
 
-Source and download: https://archive.ics.uci.edu/dataset/551/gas+turbine+co+and+nox+emission+data+set
+[原始下载页](https://archive.ics.uci.edu/dataset/551/gas+turbine+co+and+nox+emission+data+set) · [CC BY 4.0 许可](https://creativecommons.org/licenses/by/4.0/) · [原始文件校验清单](manifest.json)。五份 CSV 原样保留，下载日期 2026-10-29，年份从文件名获得，行 ID 为项目生成的追踪信息。
 
-License: [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/). The original five CSVs are redistributed without modification. No endorsement by the data contributors or UCI is implied. Derived metadata (`year`, `row_id`, partitions) are added only in memory. Source retrieval date: 2026-10-29; byte-level provenance is in `manifest.json`.
-
-| Column | Meaning | Units as listed by UCI | Project role |
+| 字段 | 名称 | UCI 所列单位 | 用途 |
 |---|---|---|---|
-| AT | Ambient temperature | °C | input |
-| AP | Ambient pressure | mbar | input |
-| AH | Ambient humidity | % | input |
-| AFDP | Air filter difference pressure | mbar | input |
-| GTEP | Gas turbine exhaust pressure | mbar | input |
-| TIT | Turbine inlet temperature | °C | input |
-| TAT | Turbine after temperature | °C | input |
-| TEY | Turbine energy yield | MWh | input |
-| CDP | Compressor discharge pressure | mbar (UCI label) | input |
-| CO | Carbon monoxide | mg/m³ | excluded |
-| NOX | Nitrogen oxides | mg/m³ | target |
+| AT | 环境温度 | °C | 输入 |
+| AP | 环境压力 | mbar | 输入 |
+| AH | 环境湿度 | % | 输入 |
+| AFDP | 空气过滤器压差 | mbar | 输入 |
+| GTEP | 燃气轮机排气压力 | mbar | 输入 |
+| TIT | 涡轮入口温度 | °C | 输入 |
+| TAT | 涡轮后温度 | °C | 输入 |
+| TEY | 涡轮发电量 | MWh | 输入 |
+| CDP | 压气机排气压力 | mbar（UCI 标注） | 输入 |
+| CO | 一氧化碳浓度 | mg/m³ | 排除 |
+| NOX | 氮氧化物浓度 | mg/m³ | 目标 |
 
-UCI lists CDP as mbar although its numerical scale warrants checking against the originating paper before physical interpretation. This project preserves source values and does not silently convert units. UCI's web schema includes `year`, while the actual CSVs have exactly 11 columns and no year column; the loader checks the real CSV schema.
-
-The observations are hourly aggregates from one plant in northwestern Turkey, 2011–2015. Exact timestamps are absent; chronological order is preserved. Repeated measurement vectors are reported, not automatically dropped: no event IDs establish that they are erroneous duplicates. The audit found 7 repeated measurement rows in 2014 and none within the other annual files; all are retained. There are no missing/non-numeric values in the downloaded snapshot. Missing/corrupt files fail validation rather than being silently imputed.
-
-The primary software has no license grant beyond the owner's repository permissions; the dataset's CC BY 4.0 terms apply independently to these files.
+数据来自土耳其西北部同一电厂，2011–2015 年，按时间排序，无精确时间戳。36,733 行均有 11 个有限数值。2014 年的 7 条年内重复测量行按原样保留。代码不自行换算 CDP 的物理单位。

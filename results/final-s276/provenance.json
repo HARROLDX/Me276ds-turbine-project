@@ -1,0 +1,17 @@
+{
+  "utc": "2026-11-05T19:58:13.407745+00:00",
+  "python": "3.12.3",
+  "packages": {
+    "numpy": "2.2.6",
+    "pandas": "2.3.3",
+    "scipy": "1.16.3",
+    "scikit-learn": "1.7.2",
+    "matplotlib": "3.10.7",
+    "joblib": "1.5.2",
+    "threadpoolctl": "3.6.0"
+  },
+  "git_commit": "051ef774470aecae65a413cc6403ae2b44c96359",
+  "git_status": "",
+  "source_sha256": "e6b7932b8acb9e6924a4e01572733b8669025523322c59c5dabdba6677b86817",
+  "manifest_sha256": "9062785984ead3a41435bfbe9b68e15412f3c8346f3c831ec1831ac74209078c"
+}

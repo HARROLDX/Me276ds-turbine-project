@@ -1,40 +1,12 @@
-# Experimental protocol and future write-up
+# 实验方法与查阅顺序
 
-## Frozen protocol
+[报告第 2–3 页](../website/report.pdf) 给出数据来源、划分和回归公式。第 4–6 页依次对应主模型比较、前向选择与正则化，第 7 页解释高浓度记录的偏差，第 8 页给出工程取舍、复现网格和资料来源。
 
-Use `2011–2014 → train`, first half of 2015 → validation, second half → test. The half-year wording is approximate: these are halves of the available ordered records, not known calendar dates. No shuffling across partitions. 2015 validation labels are never included in the fitted training set, including final refits.
+- 训练、验证、测试分区互斥。2015 年两段各 3,692 行，原始行号顺序保留。读取一份年度 CSV 以构造两段时，只有验证行被传入开发实验。
+- OLS、Ridge、Lasso 和 MLP 在 Pipeline 内标准化输入；MLP 同时标准化目标，推理时还原单位。验证阶段统一按 RMSE 选择设置，相同分数按参数网格顺序决策。
+- 前向 OLS 在同一验证段上比较每步新增特征，并选择在路径最佳 RMSE 的 1% 内规模最小的子集。反复使用验证数据会带来选择偏差，因此最终结果另在后期测试段上报告。
+- Ridge 与 Lasso 的目标函数尺度不同，各自在预设网格内选 α。系数是在训练标准化输入下的浓度变化，传感器之间相关，系数方向不能解释为控制干预的因果效应。
+- 仅比较同厂不同时段，没有独立电厂验证。原始记录缺少时间戳，临近记录可能相关，因此不作独立样本显著性或部署安全性推断。
+- 报告中的平均偏差定义为预测减实测。训练第 90 百分位以上为高浓度诊断子组，不是法定限值。
 
-All six model families train on the same 29,349 rows; four comprise the main comparison. Use the explicit candidate grids and seed in `configs/experiments.json`. Selection minimizes validation RMSE. Ties follow deterministic grid order. The forward OLS experiment uses the same validation block to choose additions and subset size; a 1% RMSE tolerance favors the smallest competitive subset. Its selected feature set can contain all nine inputs if reduction does not qualify.
-
-Development logs training and validation scores, fit times and warnings per candidate; no test predictions are generated. `selection.json` freezes one choice per family and the forward OLS subset. Final evaluation rejects changed code, manifest, package versions or selection bytes, fits all seven selected configurations using training years only, and scores the second 2015 block. Reporting consumes saved outputs and never refits.
-
-The holdout file is physically read for integrity checking and split construction because validation and test share one CSV. Only validation rows are passed to model/feature-selection routines; test values cannot enter fitting, scaling, ranking or descriptive training summaries. Structural QA is not test-set model evaluation.
-
-## Leakage, uncertainty and interpretation
-
-- Contiguous records may be correlated, including across the validation/test boundary. A temporal split reduces random-split optimism but does not make samples iid. No significance claims or iid confidence intervals are produced by default.
-- Reusing validation for many candidates and greedy feature additions introduces selection optimism. Validation results guide selection; they are not unbiased final performance estimates.
-- Different operating regimes and yearly shift may dominate results. The test only assesses a later period at the same plant; generalization to other plants is unknown.
-- These are simultaneous measurements. The narrative is an estimate from already available operating measurements, not a future forecast or pre-operation optimization tool. TEY and other sensor availability must be checked for any deployment.
-- Correlated inputs can yield unstable OLS/Lasso coefficients or interchangeable selected features. Penalized coefficients describe association; feature removal is a predictive experiment, not safety justification for removing instrumentation.
-- Ridge minimizes squared error plus an L2 term; sklearn Lasso uses a sample-normalized squared error plus L1. Compare their own alpha curves, not raw alpha magnitudes across families.
-- MLP optimization and Lasso convergence warnings must be reviewed on validation before final evaluation. A returned prediction does not establish convergence. No model run has yet been performed.
-- Test metrics are for reporting, not another tuning signal. Re-running in a new directory after viewing the test does not restore its held-out status.
-
-## Final report checklist (future work)
-
-1. State stakeholder, intended use, data source/license, target and 9 inputs.
-2. Explain revised chronological split, raw-data QA, preprocessing, seed and search grids.
-3. Present four-model comparison: MAE, RMSE, R², fit time and qualitative complexity.
-4. Present forward-selection curve, selected variables and all-input baseline comparison.
-5. Present Ridge/Lasso penalty curves, coefficients and selected penalties against OLS.
-6. Include prediction/residual plots and interpret large errors, temporal limitations, correlated sensors and optimization warnings.
-7. State team contributions and conclusions supported by actual results. Avoid causal/regulatory claims.
-8. Prepare presentation after report results exist; confirm instructor's final format/deadlines.
-
-## Implementation references
-
-- UCI dataset page and DOI linked in the main README (source chronology, license, variables).
-- [scikit-learn 1.7 Pipeline](https://scikit-learn.org/1.7/modules/generated/sklearn.pipeline.Pipeline.html): encapsulated training-only preprocessing.
-- [scikit-learn 1.7 MLPRegressor](https://scikit-learn.org/1.7/modules/generated/sklearn.neural_network.MLPRegressor.html): early stopping, regularization and optimization settings.
-- Installed scikit-learn 1.7.2 parameter constraints are checked locally; source code is authoritative for the pinned runtime.
+实现入口为 `src/nox_project/{data,models,experiments,metrics,reporting}.py`，最终配置见 `configs/experiments.json`。参考 [UCI 551](https://doi.org/10.24432/C5WC95)、[scikit-learn 1.7 Pipeline](https://scikit-learn.org/1.7/modules/generated/sklearn.pipeline.Pipeline.html) 和 [MLPRegressor](https://scikit-learn.org/1.7/modules/generated/sklearn.neural_network.MLPRegressor.html)。

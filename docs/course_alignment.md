@@ -1,29 +1,14 @@
-# Course requirements and precedence
+# 课程要求与交付
 
-Sources: instructor announcement and syllabus pasted by the user; supplied project plan PDF; supplied lecture PDFs. These documents provide task evidence, not authorization to email, submit forms, publish a website or launch training.
-
-Precedence for this implementation:
-
-1. Current explicit user instructions, including no training and the updated 2011–2014 / 2015 split.
-2. Instructor project requirements.
-3. Team project plan (three experiments, 9 inputs, NOX output).
-4. Slides/syllabus as reference for modeling concepts.
-
-| Requirement or source | Implementation / status |
+| 课程或团队方案要求 | 本项目落实方式 |
 |---|---|
-| Dataset plus stakeholder narrative | UCI 551; plant operators and environmental monitoring engineers |
-| At least 8 features, 500 samples; avoid very large files | 9 inputs, 36,733 rows, 2.78 MB original CSVs |
-| Variety of course models | OLS, Random Forest, Gradient Boosting, MLP |
-| Plan: feature selection and regularization | Forward OLS, Ridge, Lasso |
-| Supervised learning slides, pp. 11–15 | MAE/RMSE/R², held-out evaluation, validation-based hyperparameter selection |
-| Linear regression 1–2 | Linear baseline; engineering interpretation of coefficients with caution |
-| Linear regression 3, pp. 3–11 | Overfitting, feature selection, Ridge/Lasso |
-| Probability/optimization slides | Statistical assumptions and numerical optimization context |
-| Classification and logistic regression slides | Reference only; not required for a continuous NOX target |
-| Team size 3–5 | Administrative requirement; membership not supplied/modified |
-| Mandatory workshop | Announcement says October 27; pasted calendar places workshop in Thursday column of Oct 26–30. This discrepancy is not resolved by code; no attendance claim made. |
-| GSI check-in | 30-minute Zoom meeting in mid-November; exact slot not supplied |
-| Report and presentation | RRR-week report (exact date/format TBD), finals-week presentation |
-| Optional website | Not required by instructor; outside this implementation |
+| 表格数据、明确的预测对象 | UCI 551，36,733 条记录、9 个输入、连续 NOX 浓度 |
+| 真实使用者与叙事 | 电厂运行人员及环境监测工程师估计同期烟气浓度，分组检查高排放误差 |
+| 使用多种课程建模方法 | OLS、随机森林、梯度提升、MLP，共用验证准则和时间划分 |
+| 团队方案的两个扩展 | 前向 OLS 特征选择、Ridge 与 Lasso 正则化，覆盖超参数及系数变化 |
+| 公平评价 | 训练内标准化、验证选型、冻结后一次测试；MAE/RMSE/R²、复杂度和残差诊断 |
+| 最终书面报告与展示 | [中文报告](../website/report.pdf)、[六页课堂展示](https://me276ds-turbine-nox.vigilantdrape.chatgpt.site/slides.html)、[交互网页](https://me276ds-turbine-nox.vigilantdrape.chatgpt.site) |
 
-The supplied PDF remains unchanged as historical evidence. Its older held-out-year split is superseded by the user's explicit revision: training years 2011–2014; disjoint first/second halves of 2015 for validation/test. Workshop-form submissions, team registration, attendance, final report and presentation are not completed by preparing this repository.
+[原始团队方案](ME276DS_Gas_Turbine_NOx_Project_Plan.pdf) 留作立项记录。最终时间划分采用训练 2011–2014、验证 2015 前半、测试 2015 后半。
+
+工作坊、11 月中旬 30 分钟 GSI check-in、RRR 周提交和 finals 周汇报属于课程安排。此仓库记录实验并提供材料，现场参与及向课程平台提交由小组进行。
