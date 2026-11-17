@@ -7,7 +7,15 @@ Jiawei Xia · Rongqian Zhang · Bowen Xie · Zhuoqun Yang
 
 电厂工程师能从温度、压力、湿度和发电量等九项同期读数，把一小时的 NOₓ 浓度估计到多准？我们以土耳其西北部一座电厂的 36,733 条小时记录比较四种回归方法，再考察减少传感器和限制系数大小是否有益。所有误差均按原浓度单位 mg/m³ 计算。
 
-## 主要结果
+## 11 月 16 日扩充训练比较
+
+本轮训练 33,041 条，固定历史参数与特征，无新增验证集或调参。测试仍为 2015 后半段 3,692 条。历史参数曾用原验证段选择，测试段也已经查看，本次属于探索性比较。
+
+[新轮指标](results/expanded-s276/test_metrics.csv) · [逐条预测](results/expanded-s276/test_predictions.csv) · [网站两轮对比](https://me276ds-turbine-nox.vigilantdrape.chatgpt.site/#expanded)
+
+复现入口为 scripts/train_expanded.py。原报告与展示保留原轮结果。
+
+## 原轮主要结果
 
 | 主模型 | 验证 RMSE | 测试 MAE | 测试 RMSE | 测试 R² |
 |---|---:|---:|---:|---:|
