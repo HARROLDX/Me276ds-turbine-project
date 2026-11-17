@@ -1,0 +1,124 @@
+{
+  "ols": {
+    "model": "ols",
+    "params": {},
+    "features": [
+      "AT",
+      "AP",
+      "AH",
+      "AFDP",
+      "GTEP",
+      "TIT",
+      "TAT",
+      "TEY",
+      "CDP"
+    ]
+  },
+  "random_forest": {
+    "model": "random_forest",
+    "params": {
+      "max_depth": 12,
+      "min_samples_leaf": 1,
+      "n_estimators": 200
+    },
+    "features": [
+      "AT",
+      "AP",
+      "AH",
+      "AFDP",
+      "GTEP",
+      "TIT",
+      "TAT",
+      "TEY",
+      "CDP"
+    ]
+  },
+  "gradient_boosting": {
+    "model": "gradient_boosting",
+    "params": {
+      "learning_rate": 0.05,
+      "max_depth": 3,
+      "n_estimators": 100
+    },
+    "features": [
+      "AT",
+      "AP",
+      "AH",
+      "AFDP",
+      "GTEP",
+      "TIT",
+      "TAT",
+      "TEY",
+      "CDP"
+    ]
+  },
+  "mlp": {
+    "model": "mlp",
+    "params": {
+      "alpha": 0.01,
+      "hidden_layer_sizes": [
+        32
+      ],
+      "learning_rate_init": 0.001
+    },
+    "features": [
+      "AT",
+      "AP",
+      "AH",
+      "AFDP",
+      "GTEP",
+      "TIT",
+      "TAT",
+      "TEY",
+      "CDP"
+    ]
+  },
+  "ridge": {
+    "model": "ridge",
+    "params": {
+      "alpha": 10.0
+    },
+    "features": [
+      "AT",
+      "AP",
+      "AH",
+      "AFDP",
+      "GTEP",
+      "TIT",
+      "TAT",
+      "TEY",
+      "CDP"
+    ]
+  },
+  "lasso": {
+    "model": "lasso",
+    "params": {
+      "alpha": 0.001
+    },
+    "features": [
+      "AT",
+      "AP",
+      "AH",
+      "AFDP",
+      "GTEP",
+      "TIT",
+      "TAT",
+      "TEY",
+      "CDP"
+    ]
+  },
+  "forward_ols": {
+    "model": "ols",
+    "params": {},
+    "features": [
+      "AT",
+      "GTEP",
+      "AFDP",
+      "TAT",
+      "AP",
+      "AH",
+      "TIT",
+      "TEY"
+    ]
+  }
+}

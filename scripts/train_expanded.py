@@ -11,17 +11,17 @@ from threadpoolctl import threadpool_limits
 root=Path.cwd()
 out=root/"runs/expanded-s276"
 out.mkdir(parents=True,exist_ok=False)
-old=json.loads((root/"results/final-s276/selection.json").read_text())
+choices=json.loads((root/"configs/fixed_models.json").read_text())
 a,b=load_development(root)
 train=pd.concat([a,b],ignore_index=True)
 test=load_test(root)
 write_json(out/"provenance.json",provenance(root))
 pred=test[["row_id","year",TARGET]].copy()
 rows=[]
-for key,choice in old["selected"].items():
+for key,choice in choices.items():
     import time
     from nox_project.metrics import regression_metrics
-    m=build_model(choice["model"],choice["params"],old["seed"])
+    m=build_model(choice["model"],choice["params"],276)
     start=time.perf_counter()
     with threadpool_limits(limits=1):
         m.fit(train[choice["features"]],train[TARGET])
@@ -32,4 +32,4 @@ for key,choice in old["selected"].items():
     print(rows[-1],flush=True)
 pred.to_csv(out/"test_predictions.csv",index=False)
 pd.DataFrame(rows).to_csv(out/"test_metrics.csv",index=False)
-write_json(out/"protocol.json",{"training_rows":len(train),"test_rows":len(test),"validation_rows":0,"parameters":"fixed from final-s276 historical selection; previously used 2015 first half for selection","test":"same previously observed 2015 second half; comparison is exploratory","selected":old["selected"]})
+write_json(out/"protocol.json",{"training_rows":len(train),"test_rows":len(test),"validation_rows":0,"parameters":"fixed from final-s276 historical selection; previously used 2015 first half for selection","test":"same previously observed 2015 second half; comparison is exploratory","selected":choices})

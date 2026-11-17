@@ -1,6 +1,5 @@
-# 报告与核验记录
+# 当前实验
 
-- [八页中文数学与分析报告](../website/report.pdf)；打印源为 `final-report.html` 和 `print.css`。
-- [正式运行的预测与指标](../results/final-s276/) 已从原始测试行重新核对。四张中文科研图位于 `website/figures/`。
-- `verification.log` 与 `data_audit.json` 是 **2026-10-29 准备阶段**的记录。其 16 项检查在正式训练之前完成。
-- **2026-11-05** 在明确授权后完成所有开发拟合、最终评估、报告与课堂展示。训练与测试划分见项目 README。
+当前训练集为 2011–2014 全部及 2015 前半段，共 33,041 条；测试集为 2015 后半段 3,692 条。结果位于 results/expanded-s276/，网站源码位于 website/。采用 configs/fixed_models.json 中既定参数和特征，当前轮无验证集。
+
+旧轮训练结果及展示已按用户要求移除。主入口与复现方式见根 README.md。
