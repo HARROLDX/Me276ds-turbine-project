@@ -1,7 +1,7 @@
 "use strict";
 const D = window.STUDY;
 const labels = {ols:"线性回归",random_forest:"随机森林",gradient_boosting:"梯度提升",mlp:"神经网络 MLP",ridge:"Ridge",lasso:"Lasso",forward_ols:"前向选择 OLS"};
-const mainModels=Object.keys(D.metrics);
+const mainModels=["ols","random_forest","gradient_boosting","mlp"];
 const $ = id => document.getElementById(id);
 const fmt = (value, places=2) => Number(value).toFixed(places);
 function drawBars() {
@@ -30,5 +30,30 @@ $("comp-copy").textContent=D.copy.compare; $("failure").textContent=D.copy.diagn
 $("metric").addEventListener("change",drawBars);
 $("trace-model").innerHTML=Object.keys(D.metrics).map(k=>'<option value="'+k+'">'+labels[k]+'</option>').join("");
 $("trace-model").value=D.winner; $("trace-model").onchange=drawTrace; $("window").oninput=drawTrace;
-$("table").innerHTML='<table><thead><tr><th>模型</th><th>输入数</th><th>MAE</th><th>RMSE</th><th>R²</th></tr></thead><tbody>'+Object.entries(D.metrics).map(([k,m])=>'<tr><td>'+labels[k]+'</td><td>'+m.n_features+'</td><td>'+fmt(m.mae)+'</td><td>'+fmt(m.rmse)+'</td><td>'+fmt(m.r2,3)+'</td></tr>').join('')+'</tbody></table>';
+$("table").innerHTML='<table><thead><tr><th>模型</th><th>输入数</th><th>MAE</th><th>RMSE</th><th>R²</th></tr></thead><tbody>'+mainModels.map(k=>{const m=D.metrics[k];return '<tr><td>'+labels[k]+'</td><td>'+m.n_features+'</td><td>'+fmt(m.mae)+'</td><td>'+fmt(m.rmse)+'</td><td>'+fmt(m.r2,3)+'</td></tr>';}).join('')+'</tbody></table>';
 drawBars();drawTrace();
+
+const sensorLabels={AT:"环境温度",AP:"环境压力",AH:"环境湿度",AFDP:"过滤器压差",GTEP:"轮机排气压力",TIT:"涡轮入口温度",TAT:"涡轮后温度",TEY:"涡轮发电量",CDP:"压气机排气压力"};
+function showFeatures(reduced) {
+  $("all-sensors").setAttribute("aria-pressed",String(!reduced));
+  $("less-sensors").setAttribute("aria-pressed",String(reduced));
+  $("sensor-grid").innerHTML=Object.entries(sensorLabels).map(([k,label])=>'<div class="sensor '+(reduced&&k==="CDP"?"omitted":"")+'"><b>'+k+'</b><span>'+label+'</span><small>'+(reduced&&k==="CDP"?"本组合省去":"保留输入")+'</small></div>').join("");
+  const m=D.metrics[reduced?"forward_ols":"ols"];
+  $("feature-rmse").textContent=fmt(m.rmse,3);
+  $("feature-message").textContent=reduced?"使用 8 项输入，测试 RMSE 下降 "+fmt(D.metrics.ols.rmse-m.rmse,3)+" mg/m³（"+fmt(100*(1-m.rmse/D.metrics.ols.rmse),2)+"%）。":"全部 9 项输入的线性基线。切换到八输入组合，查看精度与输入数量的变化。";
+}
+$("all-sensors").onclick=()=>showFeatures(false);
+$("less-sensors").onclick=()=>showFeatures(true);
+function drawRegularization(){
+ const metric=$("reg-metric").value,keys=["ols","ridge","lasso"],values=keys.map(k=>D.metrics[k][metric]);
+ const span=Math.max(...values)-Math.min(...values),pad=Math.max(span*.5,.002);
+ const lo=Math.min(...values)-pad,hi=Math.max(...values)+pad;
+ const x=v=>140+(v-lo)/(hi-lo)*510;
+ let svg='<svg viewBox="0 0 780 235" role="img" aria-label="线性回归、Ridge 和 Lasso 测试指标点图"><g font-family="system-ui,sans-serif" font-size="14" fill="#4b5e75">';
+ for(let i=0;i<5;i++){const v=lo+(hi-lo)*i/4,px=x(v);svg+='<line x1="'+px+'" x2="'+px+'" y1="20" y2="185" stroke="#dce4ee"/><text x="'+px+'" y="212" text-anchor="middle">'+fmt(v,3)+'</text>';}
+ keys.forEach((k,i)=>{const y=48+i*56;svg+='<text x="8" y="'+(y+5)+'">'+labels[k]+'</text><line x1="140" x2="650" y1="'+y+'" y2="'+y+'" stroke="#edf1f6"/><circle cx="'+x(values[i])+'" cy="'+y+'" r="7" fill="'+["#35577e","#8171b7","#16847e"][i]+'"/><text x="685" y="'+(y+5)+'">'+fmt(values[i],3)+'</text>';});
+ $("reg-chart").innerHTML=svg+'</g></svg>';
+ $("reg-caption").textContent=metric==="r2"?"横轴为测试 R²，越大越好。":"横轴为测试 "+metric.toUpperCase()+"（mg/m³），越小越好。";
+}
+$("reg-metric").onchange=drawRegularization;
+showFeatures(false);drawRegularization();
