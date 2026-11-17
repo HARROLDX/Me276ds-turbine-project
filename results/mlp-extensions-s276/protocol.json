@@ -1,0 +1,89 @@
+{
+  "seed": 276,
+  "training": "2011-2014 plus first half of 2015",
+  "test": "second half of 2015; previously observed",
+  "validation_rows": 0,
+  "interpretation": "Exploratory follow-up after observing MLP test performance; no independent confirmation or selection of winner.",
+  "feature_selection": "Reuse historical eight-feature subset (omit CDP); no MLP feature search.",
+  "variants": {
+    "mlp": {
+      "features": [
+        "AT",
+        "AP",
+        "AH",
+        "AFDP",
+        "GTEP",
+        "TIT",
+        "TAT",
+        "TEY",
+        "CDP"
+      ],
+      "params": {
+        "alpha": 0.01,
+        "hidden_layer_sizes": [
+          32
+        ],
+        "learning_rate_init": 0.001
+      }
+    },
+    "mlp_8": {
+      "features": [
+        "AT",
+        "AP",
+        "AH",
+        "AFDP",
+        "GTEP",
+        "TIT",
+        "TAT",
+        "TEY"
+      ],
+      "params": {
+        "alpha": 0.01,
+        "hidden_layer_sizes": [
+          32
+        ],
+        "learning_rate_init": 0.001
+      }
+    },
+    "mlp_no_l2": {
+      "features": [
+        "AT",
+        "AP",
+        "AH",
+        "AFDP",
+        "GTEP",
+        "TIT",
+        "TAT",
+        "TEY",
+        "CDP"
+      ],
+      "params": {
+        "alpha": 0.0,
+        "hidden_layer_sizes": [
+          32
+        ],
+        "learning_rate_init": 0.001
+      }
+    },
+    "mlp_strong_l2": {
+      "features": [
+        "AT",
+        "AP",
+        "AH",
+        "AFDP",
+        "GTEP",
+        "TIT",
+        "TAT",
+        "TEY",
+        "CDP"
+      ],
+      "params": {
+        "alpha": 0.1,
+        "hidden_layer_sizes": [
+          32
+        ],
+        "learning_rate_init": 0.001
+      }
+    }
+  }
+}
