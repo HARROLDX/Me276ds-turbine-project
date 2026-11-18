@@ -51,7 +51,7 @@ function renderStudy() {
       tr(["Configuration", "配置"]) + '</th><th>' + tr(["Train RMSE", "训练 RMSE"]) +
       '</th><th>'+tr(['Test MAE','测试 MAE'])+'</th><th>'+tr(['Test RMSE ↓','测试 RMSE ↓'])+'</th><th>'+tr(['Test R²','测试 R²'])+'</th></tr></thead><tbody>' +
       rows.map(row => '<tr class="'+ (row.id === winner ? "chosen" : "") +'"><td>'+name(row)+
-        '</td>'+["train_rmse","mae","rmse","r2"].map(key => "<td>"+score(row[key])+"</td>").join("")+"</tr>").join("")+
+        '</td>'+["train_rmse","mae","rmse","r2"].map(key => "<td>"+(row[key] == null ? "—" : score(row[key]))+"</td>").join("")+"</tr>").join("")+
       "</tbody></table></div>";
   }
   $("main-results").innerHTML = main.map(row => {
@@ -77,15 +77,21 @@ function renderStudy() {
     "固定选出的结构，重训九种八输入组合，同时保留九输入参照。最低 RMSE 配置："+inputsName(inputs)+"。"
   ]);
   $("inputs-results").innerHTML = table([arch,...study.rows.filter(row => row.stage === "inputs")], inputs.id, inputsName);
-  const l2 = byId[study.best_l2];
-  $("l2-copy").textContent = tr([
-    "Keep the selected inputs and architecture and compare three L2 penalties. Lowest test RMSE: "+score(l2.rmse)+" mg/m³ at α = "+l2.params.alpha+".",
-    "固定选出的输入与网络结构，比较三档 L2 惩罚。测试 RMSE 最低为 "+score(l2.rmse)+" mg/m³，对应 α = "+l2.params.alpha+"。"
-  ]);
-  $("l2-results").innerHTML = table(study.rows.filter(row => row.stage === "l2"), l2.id, row => "α = "+row.params.alpha);
   const sweep = window.WEAK_L2;
-  const baseline = sweep.find(row => row.alpha === 0 && row.seed === 276);
-  const bestWeak = sweep.filter(row => row.seed === 276).reduce((best, row) => row.rmse < best.rmse ? row : best);
+  const originalSeed = sweep.filter(row => row.seed === 276);
+  const baseline = originalSeed.find(row => row.alpha === 0);
+  const bestWeak = originalSeed.reduce((best, row) => row.rmse < best.rmse ? row : best);
+  const originalPenalties = study.rows.filter(row => row.stage === "l2");
+  const penalties = [
+    ...originalPenalties,
+    { ...bestWeak, id: "weak-l2-best", params: { alpha: bestWeak.alpha } },
+  ].sort((left, right) => left.params.alpha - right.params.alpha);
+  const bestPenalty = penalties.reduce((best, row) => row.rmse < best.rmse ? row : best);
+  $("l2-copy").textContent = tr([
+    "With the selected inputs and architecture fixed, α = "+bestPenalty.params.alpha+" gives the lowest test RMSE at the original seed (276).",
+    "固定选出的输入与网络结构。在原项目种子 276 下，α = "+bestPenalty.params.alpha+" 的测试 RMSE 最低。"
+  ]);
+  $("l2-results").innerHTML = table(penalties, bestPenalty.id, row => "α = "+row.params.alpha);
   $("weak-l2-copy").textContent = tr([
     "With the original seed (276), α = "+bestWeak.alpha+" reduces test RMSE from "+score(baseline.rmse)+" to "+score(bestWeak.rmse)+" mg/m³. With seeds 277 and 278, α = 0 has slightly lower RMSE.",
     "采用原项目种子 276 时，α = "+bestWeak.alpha+" 将测试 RMSE 从 "+score(baseline.rmse)+" 降至 "+score(bestWeak.rmse)+" mg/m³。种子 277 和 278 下，α = 0 的 RMSE 略低。"

@@ -1,17 +1,13 @@
-# 燃气轮机 NOₓ 软测量
+# Gas Turbine NOₓ Prediction
 
-ME276DS · 276ds-group3
-Jiawei Xia · Rongqian Zhang · Bowen Xie · Zhuoqun Yang
+2026fall-ME276DS · 276ds-group3
 
-用同一小时的九项环境和机组读数估计 NOₓ，为运行人员复核测量和排查异常工况提供参考。数据包含土耳其西北部一座电厂的 36,733 条小时聚合记录。
+[![Open project website](https://img.shields.io/badge/Project_website-Open-175CD3?style=for-the-badge)](https://me276ds-turbine-nox.vigilantdrape.chatgpt.site/)
+[![Open UCI dataset](https://img.shields.io/badge/UCI_dataset-Open-287A59?style=for-the-badge)](https://archive.ics.uci.edu/dataset/551/gas+turbine+co+and+nox+emission+data+set)
 
-[双语网站](https://me276ds-turbine-nox.vigilantdrape.chatgpt.site) · [双语报告 PDF](reports/group3_final_bilingual.pdf) · [UCI 原始数据](https://archive.ics.uci.edu/dataset/551/gas+turbine+co+and+nox+emission+data+set)
+We estimate hourly NOₓ concentrations from routine gas turbine readings to help plant operators cross-check emission measurements and investigate unusual readings. The UCI dataset contains 36,733 hourly records from one power plant in northwestern Türkiye.
 
-1. 比较线性回归、随机森林、梯度提升和 MLP 在三个训练窗口的表现。测试均为 2015 后半段的 3,692 条记录。最长窗口的 MLP 最好，RMSE 8.070 mg/m³。
-2. 固定该窗口，比较 MLP 的 8、32、64、64→32 四种隐藏层结构。8 节点配置最低，RMSE 7.861 mg/m³。
-3. 保留九输入对照，逐一去掉每个输入并重训。去掉 AFDP 的八输入配置最低，RMSE 7.799 mg/m³。
-4. 固定所选结构与输入，比较 L2 强度 0、0.01 和 0.1。α=0.0 最低，RMSE 7.781 mg/m³。
-
-各阶段按测试 RMSE 选择配置。UCI 原始数据与许可见 [数据说明](data/README.md)。
-
-安装锁定依赖与本项目后，在项目根目录运行 `python scripts/train_staged.py`。脚本复用归档的主模型结果，重训拓展实验，将配置、指标、预测和模型存到 `runs/staged-four-architectures-s276/`，已有目录时停止以保护产物。归档结果见 [实验指标](results/staged-four-architectures-s276/metrics.csv)、[完整参数与选择过程](results/staged-four-architectures-s276/study.json) 和 [逐条预测](results/staged-four-architectures-s276/test_predictions.csv)。网站可用 `python -m http.server --directory website` 本地预览。
+1. **Training windows.** We compare linear regression, random forest, gradient boosting, and an MLP on three training windows. The longest window gives the MLP a test RMSE of 8.070 mg/m³.
+2. **MLP architecture.** An eight-unit hidden layer leads the four architecture variants with a test RMSE of 7.861 mg/m³.
+3. **Feature selection.** Removing air filter differential pressure (AFDP) gives the lowest RMSE among the nine input removals, at 7.799 mg/m³.
+4. **Regularization.** With the original seed, L2 strength α = 0.003 reduces RMSE from 7.781 to 7.646 mg/m³. Zero regularization performs slightly better with the two additional seeds.
