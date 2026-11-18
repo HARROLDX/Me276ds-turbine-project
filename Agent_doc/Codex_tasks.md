@@ -1,13 +1,7 @@
 # 当前实验
 
-当前训练集为 2011–2014 全部及 2015 前半段，共 33,041 条；测试集为 2015 后半段 3,692 条。结果位于 results/expanded-s276/，网站源码位于 website/。采用 configs/fixed_models.json 中既定参数和特征，当前轮无验证集。
+双语网站：https://me276ds-group3-nox.xiaharrold2004.chatgpt.site/
 
-旧轮训练结果及展示已按用户要求移除。主入口与复现方式见根 README.md。
+主实验比较三个训练窗口，最长窗口包含 2011–2014 年及 2015 年前半段的 33,041 条记录。共享测试集是 2015 年后半段的 3,692 条记录。
 
-网站分为四模型主比较、输入特征选择、正则化三个实验。新增交互式输入卡片和正则化指标点图，预测回放保持不变；沿用当前真实结果，未重新训练。
-
-MLP 拓展实验：A6000 根目录运行 `.venv/bin/python scripts/train_mlp_extensions.py`，tmux `nox-mlp-extensions`，单 CPU 线程，输出 `runs/mlp-extensions-s276/`，日志 `runs/logs/mlp-extensions.log`。固定种子 276；复核基线、去 CDP、alpha=0/0.1，基线 alpha=0.01。测试集已观察，属于探索性分析，不据测试结果选择参数。结果同步至 `results/mlp-extensions-s276/`；旧算法说明中的线性拓展方案已被本次网页实验替代。
-
-最终四阶段实验入口为 `scripts/train_staged.py`。A6000 单 CPU 线程训练完成，日志为 `runs/logs/staged-s276.log`，模型在 `runs/staged-s276/`，正式指标和预测在 `results/staged-s276/`。双语 PDF 位于 `reports/group3_final_bilingual.pdf`，网站从同一结果发布。
-
-当前四结构版本归档在 `results/staged-four-architectures-s276/`。主实验复用 `results/staged-s276/` 的预测，拓展实验以四结构中 RMSE 最低的配置向下推进。A6000 模型在 `runs/staged-four-architectures-s276/`。
+`scripts/train_staged.py` 复用 `results/staged-s276/` 的主实验结果并重训拓展实验。当前四结构、输入消融与 L2 结果归档于 `results/staged-four-architectures-s276/`。弱 L2 补充实验入口为 `scripts/explore_weak_l2.py`，归档于 `results/weak-l2-s276/`。网站源码位于 `website/`。PDF 单独交付。
