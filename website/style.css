@@ -9,3 +9,26 @@
 .turbine-flow div{padding:20px 12px;background:#eaf1fb;border-radius:12px;color:#19395e}
 .turbine-flow small{display:block;margin-top:8px}.study-table tr.chosen{background:#eaf1fb;font-weight:650}
 @media(max-width:630px){.turbine-flow{grid-template-columns:repeat(2,1fr)}}
+
+.turbine-diagram{margin:32px 0;padding:clamp(18px,4vw,42px);border-radius:24px;background:radial-gradient(ellipse at 68% 12%,#233650,#101b2d 65%);color:#e7edf7}
+.turbine-diagram figcaption{color:#d1deef;font-size:.95rem}
+.turbine-diagram .turbine-flow{gap:0;margin-top:18px}
+.turbine-diagram .turbine-stage{position:relative;min-width:0;background:none;color:inherit;padding:0 7px 16px;text-align:center;border-radius:0}
+.turbine-stage small{color:#adbed7;font-size:.75rem}
+.machine{position:relative;display:grid;place-items:center;height:88px;margin-bottom:16px;background:linear-gradient(180deg,#253d58 0 5%,#121f32 6% 94%,#253d58 95%);overflow:hidden}
+.machine:before{content:"";position:absolute;inset:42% 0;background:linear-gradient(90deg,transparent,#71cffd,transparent);background-size:60% 100%;background-repeat:no-repeat;animation:turbine-flow 2.8s linear infinite;opacity:.45}
+.hot .machine:before{background-image:linear-gradient(90deg,transparent,#ffac65,transparent)}
+.machine i{display:block;position:relative}
+.machine .rotor{width:52px;height:52px;border:4px solid #8ab6d5;border-radius:50%;background:repeating-conic-gradient(#a1cbe7 0deg 15deg,#263b54 15deg 60deg);animation:turbine-spin 5s linear infinite}
+.rotor:after{content:"";position:absolute;inset:16px;border-radius:50%;background:#e9f5ff}
+.combustion{grid-template-columns:1fr 1fr}
+.machine .flame{width:25px;height:45px;border-radius:75% 20% 65% 45%;background:linear-gradient(#ffd68a,#fa692e);box-shadow:0 0 18px #fc7e4c;transform:rotate(35deg);animation:turbine-flame .9s ease-in-out infinite alternate}
+.intake,.exhaust{display:flex;flex-direction:column;justify-content:center;gap:7px}
+.intake i,.exhaust i{width:42%;height:3px;border-radius:4px;background:#87d5ff;animation:turbine-air 1.9s ease-in-out infinite}
+.exhaust i{background:#ffb880}
+.machine i:nth-child(2){animation-delay:-.45s}.machine i:nth-child(3){animation-delay:-.9s}
+@keyframes turbine-spin{to{transform:rotate(1turn)}}
+@keyframes turbine-flow{from{background-position:-150% 0}to{background-position:250% 0}}
+@keyframes turbine-flame{to{transform:rotate(28deg) scale(.85,1.12)}}
+@keyframes turbine-air{0%{transform:translateX(-24px);opacity:.3}70%{opacity:1}100%{transform:translateX(24px);opacity:.3}}
+@media(prefers-reduced-motion:reduce){.turbine-diagram .machine i,.turbine-diagram .machine:before{animation:none}}

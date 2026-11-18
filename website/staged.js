@@ -14,9 +14,9 @@ const copy = {
   main: ["Main experiment", "主实验"], compare: ["Four models. Three training windows.", "四种模型，三个训练窗口。"],
   protocol: ["Every window uses the same 3,692 later records from 2015 for testing. Adding years changes both the amount and recency of training data.", "所有模型统一用 2015 后半段的 3,692 条记录测试。扩大窗口同时改变了训练数据量和新近程度。"],
   window: ["Training window", "训练窗口"], metric: ["Test metric", "测试指标"],
-  ext1: ["Extension 1", "拓展实验 1"], architecture: ["Narrower, wider and deeper", "变窄、加宽与加深"],
-  ext2: ["Extension 2", "拓展实验 2"], inputs: ["Remove one input at a time", "逐一去掉一个输入"],
-  ext3: ["Extension 3", "拓展实验 3"], l2: ["How much L2 regularization?", "L2 惩罚多强合适？"],
+  ext1: ["Extension 1", "拓展实验 1"], architecture: ["Changing the MLP architecture", "改变MLP结构"],
+  ext2: ["Extension 2", "拓展实验 2"], inputs: ["Feature selection", "特征选择"],
+  ext3: ["Extension 3", "拓展实验 3"], l2: ["Can regularization improve performance?", "正则化是否能带来更好的表现"],
 };
 const windows = {
   expanded: ["2011–2014 + first half of 2015", "2011–2014 + 2015 前半段"],
@@ -26,7 +26,7 @@ const modelNames = {
   ols: ["Linear regression", "线性回归"], random_forest: ["Random forest", "随机森林"],
   gradient_boosting: ["Gradient boosting", "梯度提升"], mlp: ["MLP", "MLP"],
 };
-const layout = row => "9 → " + row.params.hidden_layer_sizes.join(" → ") + " → 1";
+const layout = row => row.params.hidden_layer_sizes.join(" → ") + " → 1";
 const score = value => value.toFixed(3);
 const windowSelect = $("training-window");
 const metricSelect = $("study-metric");

@@ -4,11 +4,13 @@
 <main><section id="top" class="hero"><canvas id="particles" aria-hidden="true"></canvas><div class="hero-in"><p class="eyebrow">UC BERKELEY　 /　 ME276DS</p><h1>燃气轮机<br><span>NO<sub>x</sub> 排放预测</span></h1><p class="lead">用九项运行读数，估计同一小时的氮氧化物浓度。<br>五年观测，四个阶段。</p><div class="actions"><a class="pill light" href="#comparison">查看实验结果 ↓</a><a class="pill ghost" href="staged_metrics.csv">下载测试指标 ↓</a></div><p class="authors">Jiawei Xia · Rongqian Zhang · Bowen Xie · Zhuoqun Yang</p></div></section>
 <section class="wrap intro" id="study">
 <h2 data-copy="story"></h2><p class="desc" data-copy="motivation"></p><p class="desc study-copy" data-copy="dataset"></p>
-<figure class="experiment-box"><figcaption data-copy="flow"></figcaption><div class="turbine-flow">
-<div><b data-copy="air"></b><small>AT · AP · AH · AFDP</small></div>
-<div><b data-copy="compressor"></b><small>CDP</small></div>
-<div><b data-copy="turbine"></b><small>TIT · TAT · GTEP · TEY</small></div>
-<div><b data-copy="exhaust"></b><small>NOₓ · mg/m³</small></div>
+<figure class="turbine-diagram">
+<figcaption data-copy="flow"></figcaption>
+<div class="turbine-flow">
+<div class="turbine-stage"><span class="machine intake" aria-hidden="true"><i></i><i></i><i></i></span><b data-copy="air"></b><small>AT · AP · AH · AFDP</small></div>
+<div class="turbine-stage"><span class="machine compressor" aria-hidden="true"><i class="rotor"></i></span><b data-copy="compressor"></b><small>CDP</small></div>
+<div class="turbine-stage hot"><span class="machine combustion" aria-hidden="true"><i class="flame"></i><i class="rotor"></i></span><b data-copy="turbine"></b><small>TIT · TAT · GTEP · TEY</small></div>
+<div class="turbine-stage hot"><span class="machine exhaust" aria-hidden="true"><i></i><i></i><i></i></span><b data-copy="exhaust"></b><small>NOₓ · mg/m³</small></div>
 </div></figure>
 <p class="desc study-copy" data-copy="use"></p><p><a href="https://archive.ics.uci.edu/dataset/551/gas+turbine+co+and+nox+emission+data+set" data-copy="source"></a></p>
 </section>
