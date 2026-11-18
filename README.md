@@ -1,16 +1,17 @@
-# 燃气轮机 NOₓ 排放预测
-ME276DS · 276ds-group3
+# 燃气轮机 NOₓ 软测量
 
+ME276DS · 276ds-group3
 Jiawei Xia · Rongqian Zhang · Bowen Xie · Zhuoqun Yang
 
-[可视化网站](https://me276ds-turbine-nox.vigilantdrape.chatgpt.site) · [测试指标](results/expanded-s276/test_metrics.csv) · [逐条预测](results/expanded-s276/test_predictions.csv)
+用同一小时的九项环境和机组读数估计 NOₓ，为运行人员复核测量和排查异常工况提供参考。数据包含土耳其西北部一座电厂的 36,733 条小时聚合记录。
 
-训练为 2011–2014 年和 2015 年前半段，共 33,041 条。测试为 2015 年后半段，共 3,692 条。固定模型参数和特征组合见 configs/fixed_models.json，这些设置沿用历史选型，本轮无单独验证集或调参。
+[双语网站](https://me276ds-turbine-nox.vigilantdrape.chatgpt.site) · [双语报告 PDF](reports/group3_final_bilingual.pdf) · [UCI 原始数据](https://archive.ics.uci.edu/dataset/551/gas+turbine+co+and+nox+emission+data+set)
 
-主比较展示线性回归、随机森林、梯度提升和 MLP 四个模型的 MAE、RMSE、R²，MLP 的测试 RMSE 为 8.070 mg/m³，R² 为 0.143。
+1. 比较线性回归、随机森林、梯度提升和 MLP 在三个训练窗口的表现。测试均为 2015 后半段的 3,692 条记录。最长窗口的 MLP 最好，RMSE 8.070 mg/m³。
+2. 固定该窗口，比较 MLP 的 32、64、64→32 三种隐藏层结构。原 32 节点结构领先。
+3. 保留九输入对照，逐一去掉每个输入并重训。去掉 AFDP 的八输入配置最低，RMSE 7.487 mg/m³。
+4. 固定所选结构与输入，比较 L2 强度 0、0.01 和 0.1。α=0 最低，RMSE 7.020 mg/m³。
 
-复现方式：安装 requirements-lock.txt 和本项目后，在根目录运行 python scripts/train_expanded.py。输出到 runs/expanded-s276，脚本拒绝覆盖已有运行。原始数据来源与许可见 data/README.md。
+结果按同一批已观察测试记录上的 RMSE 选择，属于探索性比较。部署前应使用新时段独立验证。UCI 原始数据与许可见 [数据说明](data/README.md)。
 
-网站源码位于 website/，用 python -m http.server --directory website 启动。
-
-拓展实验以 MLP 为基线：复用既定八特征组合（去 CDP），并比较 L2 强度 0、0.01、0.1。固定网络、种子与训练流程，无验证集和测试调参；由于基线根据已观察测试表现确定，这些结果属于探索性分析。复现命令：`python scripts/train_mlp_extensions.py`。结果见 `results/mlp-extensions-s276/`，模型保存在 A6000 的对应 `runs/` 目录。
+安装锁定依赖与本项目后，在项目根目录运行 `python scripts/train_staged.py`。脚本将配置、指标、预测和模型存到 `runs/staged-s276/`，已有目录时停止以保护产物。归档结果见 [实验指标](results/staged-s276/metrics.csv)、[完整参数与选择过程](results/staged-s276/study.json) 和 [逐条预测](results/staged-s276/test_predictions.csv)。网站可用 `python -m http.server --directory website` 本地预览。

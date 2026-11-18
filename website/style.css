@@ -4,3 +4,8 @@
 @media(max-width:600px){#reg-chart{overflow-x:auto}#reg-chart svg{min-width:540px}}
 
 #language{margin-left:18px;padding:5px 8px;font-size:12px} @media(max-width:600px){nav div{gap:8px}#language{margin-left:4px}}
+
+.turbine-flow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px}
+.turbine-flow div{padding:20px 12px;background:#eaf1fb;border-radius:12px;color:#19395e}
+.turbine-flow small{display:block;margin-top:8px}.study-table tr.chosen{background:#eaf1fb;font-weight:650}
+@media(max-width:630px){.turbine-flow{grid-template-columns:repeat(2,1fr)}}

@@ -1,0 +1,804 @@
+{
+  "seed": 276,
+  "selection": "Minimum test RMSE; exploratory reuse of the same holdout.",
+  "test_rows": 3692,
+  "windows": {
+    "expanded": 33041,
+    "2014": 29349,
+    "2013": 22191
+  },
+  "best_main": "main_expanded_mlp",
+  "mlp_base": "main_expanded_mlp",
+  "best_architecture": "architecture_expanded_32",
+  "best_inputs": "inputs_expanded_AFDP",
+  "best_l2": "l2_expanded_off",
+  "rows": [
+    {
+      "id": "main_expanded_ols",
+      "stage": "main",
+      "label": "ols",
+      "window": "expanded",
+      "model": "ols",
+      "training_rows": 33041,
+      "features": [
+        "AT",
+        "AP",
+        "AH",
+        "AFDP",
+        "GTEP",
+        "TIT",
+        "TAT",
+        "TEY",
+        "CDP"
+      ],
+      "params": {},
+      "train_rmse": 7.932321652924785,
+      "mae": 8.352501952963275,
+      "rmse": 10.012481188165776,
+      "r2": -0.31917637259175446
+    },
+    {
+      "id": "main_expanded_random_forest",
+      "stage": "main",
+      "label": "random_forest",
+      "window": "expanded",
+      "model": "random_forest",
+      "training_rows": 33041,
+      "features": [
+        "AT",
+        "AP",
+        "AH",
+        "AFDP",
+        "GTEP",
+        "TIT",
+        "TAT",
+        "TEY",
+        "CDP"
+      ],
+      "params": {
+        "max_depth": 12,
+        "min_samples_leaf": 1,
+        "n_estimators": 200
+      },
+      "train_rmse": 3.195506249548276,
+      "mae": 8.056945389893395,
+      "rmse": 10.145618027205868,
+      "r2": -0.35449202697742677
+    },
+    {
+      "id": "main_expanded_gradient_boosting",
+      "stage": "main",
+      "label": "gradient_boosting",
+      "window": "expanded",
+      "model": "gradient_boosting",
+      "training_rows": 33041,
+      "features": [
+        "AT",
+        "AP",
+        "AH",
+        "AFDP",
+        "GTEP",
+        "TIT",
+        "TAT",
+        "TEY",
+        "CDP"
+      ],
+      "params": {
+        "learning_rate": 0.05,
+        "max_depth": 3,
+        "n_estimators": 100
+      },
+      "train_rmse": 6.097486230404679,
+      "mae": 8.708647900478425,
+      "rmse": 10.151122655443832,
+      "r2": -0.3559622178923012
+    },
+    {
+      "id": "main_expanded_mlp",
+      "stage": "main",
+      "label": "mlp",
+      "window": "expanded",
+      "model": "mlp",
+      "training_rows": 33041,
+      "features": [
+        "AT",
+        "AP",
+        "AH",
+        "AFDP",
+        "GTEP",
+        "TIT",
+        "TAT",
+        "TEY",
+        "CDP"
+      ],
+      "params": {
+        "alpha": 0.01,
+        "hidden_layer_sizes": [
+          32
+        ],
+        "learning_rate_init": 0.001
+      },
+      "train_rmse": 4.650249618811448,
+      "mae": 6.227807289123465,
+      "rmse": 8.070114119349276,
+      "r2": 0.143004009297655,
+      "iterations": 229
+    },
+    {
+      "id": "main_2014_ols",
+      "stage": "main",
+      "label": "ols",
+      "window": "2014",
+      "model": "ols",
+      "training_rows": 29349,
+      "features": [
+        "AT",
+        "AP",
+        "AH",
+        "AFDP",
+        "GTEP",
+        "TIT",
+        "TAT",
+        "TEY",
+        "CDP"
+      ],
+      "params": {},
+      "train_rmse": 7.97984778583471,
+      "mae": 9.004487593285198,
+      "rmse": 10.798614727176426,
+      "r2": -0.5344598569393051
+    },
+    {
+      "id": "main_2014_random_forest",
+      "stage": "main",
+      "label": "random_forest",
+      "window": "2014",
+      "model": "random_forest",
+      "training_rows": 29349,
+      "features": [
+        "AT",
+        "AP",
+        "AH",
+        "AFDP",
+        "GTEP",
+        "TIT",
+        "TAT",
+        "TEY",
+        "CDP"
+      ],
+      "params": {
+        "max_depth": 12,
+        "min_samples_leaf": 1,
+        "n_estimators": 200
+      },
+      "train_rmse": 3.1023038936556007,
+      "mae": 10.481241459623956,
+      "rmse": 12.34321536337638,
+      "r2": -1.004823069526072
+    },
+    {
+      "id": "main_2014_gradient_boosting",
+      "stage": "main",
+      "label": "gradient_boosting",
+      "window": "2014",
+      "model": "gradient_boosting",
+      "training_rows": 29349,
+      "features": [
+        "AT",
+        "AP",
+        "AH",
+        "AFDP",
+        "GTEP",
+        "TIT",
+        "TAT",
+        "TEY",
+        "CDP"
+      ],
+      "params": {
+        "learning_rate": 0.05,
+        "max_depth": 3,
+        "n_estimators": 100
+      },
+      "train_rmse": 5.848912494415023,
+      "mae": 10.095209218624799,
+      "rmse": 11.434162201006933,
+      "r2": -0.7203948557282258
+    },
+    {
+      "id": "main_2014_mlp",
+      "stage": "main",
+      "label": "mlp",
+      "window": "2014",
+      "model": "mlp",
+      "training_rows": 29349,
+      "features": [
+        "AT",
+        "AP",
+        "AH",
+        "AFDP",
+        "GTEP",
+        "TIT",
+        "TAT",
+        "TEY",
+        "CDP"
+      ],
+      "params": {
+        "alpha": 0.01,
+        "hidden_layer_sizes": [
+          32
+        ],
+        "learning_rate_init": 0.001
+      },
+      "train_rmse": 4.741873421348613,
+      "mae": 8.039070069048796,
+      "rmse": 9.83134170628611,
+      "r2": -0.27187672539158125,
+      "iterations": 182
+    },
+    {
+      "id": "main_2013_ols",
+      "stage": "main",
+      "label": "ols",
+      "window": "2013",
+      "model": "ols",
+      "training_rows": 22191,
+      "features": [
+        "AT",
+        "AP",
+        "AH",
+        "AFDP",
+        "GTEP",
+        "TIT",
+        "TAT",
+        "TEY",
+        "CDP"
+      ],
+      "params": {},
+      "train_rmse": 7.972044652361953,
+      "mae": 10.001570638139333,
+      "rmse": 11.882434675312583,
+      "r2": -0.8579341128884572
+    },
+    {
+      "id": "main_2013_random_forest",
+      "stage": "main",
+      "label": "random_forest",
+      "window": "2013",
+      "model": "random_forest",
+      "training_rows": 22191,
+      "features": [
+        "AT",
+        "AP",
+        "AH",
+        "AFDP",
+        "GTEP",
+        "TIT",
+        "TAT",
+        "TEY",
+        "CDP"
+      ],
+      "params": {
+        "max_depth": 12,
+        "min_samples_leaf": 1,
+        "n_estimators": 200
+      },
+      "train_rmse": 2.8592116352587156,
+      "mae": 12.760555536775708,
+      "rmse": 14.377613058410656,
+      "r2": -1.7201510472984776
+    },
+    {
+      "id": "main_2013_gradient_boosting",
+      "stage": "main",
+      "label": "gradient_boosting",
+      "window": "2013",
+      "model": "gradient_boosting",
+      "training_rows": 22191,
+      "features": [
+        "AT",
+        "AP",
+        "AH",
+        "AFDP",
+        "GTEP",
+        "TIT",
+        "TAT",
+        "TEY",
+        "CDP"
+      ],
+      "params": {
+        "learning_rate": 0.05,
+        "max_depth": 3,
+        "n_estimators": 100
+      },
+      "train_rmse": 5.21349001959215,
+      "mae": 13.674720717781279,
+      "rmse": 14.863351902167947,
+      "r2": -1.9070530577536355
+    },
+    {
+      "id": "main_2013_mlp",
+      "stage": "main",
+      "label": "mlp",
+      "window": "2013",
+      "model": "mlp",
+      "training_rows": 22191,
+      "features": [
+        "AT",
+        "AP",
+        "AH",
+        "AFDP",
+        "GTEP",
+        "TIT",
+        "TAT",
+        "TEY",
+        "CDP"
+      ],
+      "params": {
+        "alpha": 0.01,
+        "hidden_layer_sizes": [
+          32
+        ],
+        "learning_rate_init": 0.001
+      },
+      "train_rmse": 4.579893161266702,
+      "mae": 14.704322297712473,
+      "rmse": 15.856020395117147,
+      "r2": -2.308322430380474,
+      "iterations": 107
+    },
+    {
+      "id": "architecture_expanded_32",
+      "stage": "architecture",
+      "label": "32",
+      "window": "expanded",
+      "model": "mlp",
+      "training_rows": 33041,
+      "features": [
+        "AT",
+        "AP",
+        "AH",
+        "AFDP",
+        "GTEP",
+        "TIT",
+        "TAT",
+        "TEY",
+        "CDP"
+      ],
+      "params": {
+        "alpha": 0.01,
+        "hidden_layer_sizes": [
+          32
+        ],
+        "learning_rate_init": 0.001
+      },
+      "train_rmse": 4.650249618811448,
+      "mae": 6.227807289123465,
+      "rmse": 8.070114119349276,
+      "r2": 0.143004009297655,
+      "iterations": 229
+    },
+    {
+      "id": "architecture_expanded_64",
+      "stage": "architecture",
+      "label": "64",
+      "window": "expanded",
+      "model": "mlp",
+      "training_rows": 33041,
+      "features": [
+        "AT",
+        "AP",
+        "AH",
+        "AFDP",
+        "GTEP",
+        "TIT",
+        "TAT",
+        "TEY",
+        "CDP"
+      ],
+      "params": {
+        "alpha": 0.01,
+        "hidden_layer_sizes": [
+          64
+        ],
+        "learning_rate_init": 0.001
+      },
+      "train_rmse": 4.395849652970033,
+      "mae": 7.0559393619284965,
+      "rmse": 8.834618224463194,
+      "r2": -0.027058098902280614,
+      "iterations": 199
+    },
+    {
+      "id": "architecture_expanded_64x32",
+      "stage": "architecture",
+      "label": "64x32",
+      "window": "expanded",
+      "model": "mlp",
+      "training_rows": 33041,
+      "features": [
+        "AT",
+        "AP",
+        "AH",
+        "AFDP",
+        "GTEP",
+        "TIT",
+        "TAT",
+        "TEY",
+        "CDP"
+      ],
+      "params": {
+        "alpha": 0.01,
+        "hidden_layer_sizes": [
+          64,
+          32
+        ],
+        "learning_rate_init": 0.001
+      },
+      "train_rmse": 3.8175666201549197,
+      "mae": 6.676901492995196,
+      "rmse": 9.063591565699072,
+      "r2": -0.08098605414812488,
+      "iterations": 161
+    },
+    {
+      "id": "inputs_expanded_AT",
+      "stage": "inputs",
+      "label": "AT",
+      "window": "expanded",
+      "model": "mlp",
+      "training_rows": 33041,
+      "features": [
+        "AP",
+        "AH",
+        "AFDP",
+        "GTEP",
+        "TIT",
+        "TAT",
+        "TEY",
+        "CDP"
+      ],
+      "params": {
+        "alpha": 0.01,
+        "hidden_layer_sizes": [
+          32
+        ],
+        "learning_rate_init": 0.001
+      },
+      "train_rmse": 5.4009495321411265,
+      "mae": 6.812901528532234,
+      "rmse": 8.598277365825671,
+      "r2": 0.02715793897061969,
+      "iterations": 184
+    },
+    {
+      "id": "inputs_expanded_AP",
+      "stage": "inputs",
+      "label": "AP",
+      "window": "expanded",
+      "model": "mlp",
+      "training_rows": 33041,
+      "features": [
+        "AT",
+        "AH",
+        "AFDP",
+        "GTEP",
+        "TIT",
+        "TAT",
+        "TEY",
+        "CDP"
+      ],
+      "params": {
+        "alpha": 0.01,
+        "hidden_layer_sizes": [
+          32
+        ],
+        "learning_rate_init": 0.001
+      },
+      "train_rmse": 4.841959508076454,
+      "mae": 6.419636486470423,
+      "rmse": 8.19251683846144,
+      "r2": 0.11681004023202735,
+      "iterations": 248
+    },
+    {
+      "id": "inputs_expanded_AH",
+      "stage": "inputs",
+      "label": "AH",
+      "window": "expanded",
+      "model": "mlp",
+      "training_rows": 33041,
+      "features": [
+        "AT",
+        "AP",
+        "AFDP",
+        "GTEP",
+        "TIT",
+        "TAT",
+        "TEY",
+        "CDP"
+      ],
+      "params": {
+        "alpha": 0.01,
+        "hidden_layer_sizes": [
+          32
+        ],
+        "learning_rate_init": 0.001
+      },
+      "train_rmse": 5.150319543230491,
+      "mae": 6.759132999799091,
+      "rmse": 8.837927766803409,
+      "r2": -0.027827736898158317,
+      "iterations": 196
+    },
+    {
+      "id": "inputs_expanded_AFDP",
+      "stage": "inputs",
+      "label": "AFDP",
+      "window": "expanded",
+      "model": "mlp",
+      "training_rows": 33041,
+      "features": [
+        "AT",
+        "AP",
+        "AH",
+        "GTEP",
+        "TIT",
+        "TAT",
+        "TEY",
+        "CDP"
+      ],
+      "params": {
+        "alpha": 0.01,
+        "hidden_layer_sizes": [
+          32
+        ],
+        "learning_rate_init": 0.001
+      },
+      "train_rmse": 5.029095428562317,
+      "mae": 6.050189386124611,
+      "rmse": 7.48728695829885,
+      "r2": 0.2623193453515551,
+      "iterations": 201
+    },
+    {
+      "id": "inputs_expanded_GTEP",
+      "stage": "inputs",
+      "label": "GTEP",
+      "window": "expanded",
+      "model": "mlp",
+      "training_rows": 33041,
+      "features": [
+        "AT",
+        "AP",
+        "AH",
+        "AFDP",
+        "TIT",
+        "TAT",
+        "TEY",
+        "CDP"
+      ],
+      "params": {
+        "alpha": 0.01,
+        "hidden_layer_sizes": [
+          32
+        ],
+        "learning_rate_init": 0.001
+      },
+      "train_rmse": 4.933517413156623,
+      "mae": 7.000678574847508,
+      "rmse": 9.104358316817203,
+      "r2": -0.09073216761176495,
+      "iterations": 194
+    },
+    {
+      "id": "inputs_expanded_TIT",
+      "stage": "inputs",
+      "label": "TIT",
+      "window": "expanded",
+      "model": "mlp",
+      "training_rows": 33041,
+      "features": [
+        "AT",
+        "AP",
+        "AH",
+        "AFDP",
+        "GTEP",
+        "TAT",
+        "TEY",
+        "CDP"
+      ],
+      "params": {
+        "alpha": 0.01,
+        "hidden_layer_sizes": [
+          32
+        ],
+        "learning_rate_init": 0.001
+      },
+      "train_rmse": 5.193053530267534,
+      "mae": 8.728394862711525,
+      "rmse": 10.428264156767945,
+      "r2": -0.43101269085880567,
+      "iterations": 136
+    },
+    {
+      "id": "inputs_expanded_TAT",
+      "stage": "inputs",
+      "label": "TAT",
+      "window": "expanded",
+      "model": "mlp",
+      "training_rows": 33041,
+      "features": [
+        "AT",
+        "AP",
+        "AH",
+        "AFDP",
+        "GTEP",
+        "TIT",
+        "TEY",
+        "CDP"
+      ],
+      "params": {
+        "alpha": 0.01,
+        "hidden_layer_sizes": [
+          32
+        ],
+        "learning_rate_init": 0.001
+      },
+      "train_rmse": 5.294314565519419,
+      "mae": 7.563577791136616,
+      "rmse": 9.658831079756107,
+      "r2": -0.22763307217308437,
+      "iterations": 270
+    },
+    {
+      "id": "inputs_expanded_TEY",
+      "stage": "inputs",
+      "label": "TEY",
+      "window": "expanded",
+      "model": "mlp",
+      "training_rows": 33041,
+      "features": [
+        "AT",
+        "AP",
+        "AH",
+        "AFDP",
+        "GTEP",
+        "TIT",
+        "TAT",
+        "CDP"
+      ],
+      "params": {
+        "alpha": 0.01,
+        "hidden_layer_sizes": [
+          32
+        ],
+        "learning_rate_init": 0.001
+      },
+      "train_rmse": 4.8520960901634815,
+      "mae": 7.2784337732025,
+      "rmse": 9.470064652195045,
+      "r2": -0.18011770444989184,
+      "iterations": 161
+    },
+    {
+      "id": "inputs_expanded_CDP",
+      "stage": "inputs",
+      "label": "CDP",
+      "window": "expanded",
+      "model": "mlp",
+      "training_rows": 33041,
+      "features": [
+        "AT",
+        "AP",
+        "AH",
+        "AFDP",
+        "GTEP",
+        "TIT",
+        "TAT",
+        "TEY"
+      ],
+      "params": {
+        "alpha": 0.01,
+        "hidden_layer_sizes": [
+          32
+        ],
+        "learning_rate_init": 0.001
+      },
+      "train_rmse": 4.789464761237882,
+      "mae": 6.8009365343300585,
+      "rmse": 8.804866253626713,
+      "r2": -0.020152186486598556,
+      "iterations": 163
+    },
+    {
+      "id": "l2_expanded_off",
+      "stage": "l2",
+      "label": "off",
+      "window": "expanded",
+      "model": "mlp",
+      "training_rows": 33041,
+      "features": [
+        "AT",
+        "AP",
+        "AH",
+        "GTEP",
+        "TIT",
+        "TAT",
+        "TEY",
+        "CDP"
+      ],
+      "params": {
+        "alpha": 0.0,
+        "hidden_layer_sizes": [
+          32
+        ],
+        "learning_rate_init": 0.001
+      },
+      "train_rmse": 5.087505147694577,
+      "mae": 5.621860879075884,
+      "rmse": 7.01969137217649,
+      "r2": 0.35158138437042186,
+      "iterations": 174
+    },
+    {
+      "id": "l2_expanded_baseline",
+      "stage": "l2",
+      "label": "baseline",
+      "window": "expanded",
+      "model": "mlp",
+      "training_rows": 33041,
+      "features": [
+        "AT",
+        "AP",
+        "AH",
+        "GTEP",
+        "TIT",
+        "TAT",
+        "TEY",
+        "CDP"
+      ],
+      "params": {
+        "alpha": 0.01,
+        "hidden_layer_sizes": [
+          32
+        ],
+        "learning_rate_init": 0.001
+      },
+      "train_rmse": 5.029095428562317,
+      "mae": 6.050189386124611,
+      "rmse": 7.48728695829885,
+      "r2": 0.2623193453515551,
+      "iterations": 201
+    },
+    {
+      "id": "l2_expanded_strong",
+      "stage": "l2",
+      "label": "strong",
+      "window": "expanded",
+      "model": "mlp",
+      "training_rows": 33041,
+      "features": [
+        "AT",
+        "AP",
+        "AH",
+        "GTEP",
+        "TIT",
+        "TAT",
+        "TEY",
+        "CDP"
+      ],
+      "params": {
+        "alpha": 0.1,
+        "hidden_layer_sizes": [
+          32
+        ],
+        "learning_rate_init": 0.001
+      },
+      "train_rmse": 5.184389181418342,
+      "mae": 6.2895730529235685,
+      "rmse": 7.777005010917097,
+      "r2": 0.2041262230191796,
+      "iterations": 132
+    }
+  ]
+}
