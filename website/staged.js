@@ -83,6 +83,24 @@ function renderStudy() {
     "固定选出的输入与网络结构，比较三档 L2 惩罚。测试 RMSE 最低为 "+score(l2.rmse)+" mg/m³，对应 α = "+l2.params.alpha+"。"
   ]);
   $("l2-results").innerHTML = table(study.rows.filter(row => row.stage === "l2"), l2.id, row => "α = "+row.params.alpha);
+  const sweep = window.WEAK_L2;
+  const baseline = sweep.find(row => row.alpha === 0 && row.seed === 276);
+  const bestWeak = sweep.filter(row => row.seed === 276).reduce((best, row) => row.rmse < best.rmse ? row : best);
+  $("weak-l2-copy").textContent = tr([
+    "With the original seed (276), α = "+bestWeak.alpha+" reduces test RMSE from "+score(baseline.rmse)+" to "+score(bestWeak.rmse)+" mg/m³. With seeds 277 and 278, α = 0 has slightly lower RMSE.",
+    "采用原项目种子 276 时，α = "+bestWeak.alpha+" 将测试 RMSE 从 "+score(baseline.rmse)+" 降至 "+score(bestWeak.rmse)+" mg/m³。种子 277 和 278 下，α = 0 的 RMSE 略低。"
+  ]);
+  const alphas = [...new Set(sweep.map(row => row.alpha))];
+  $("weak-l2-results").innerHTML = '<div class="scroll"><table class="study-table"><thead><tr><th>α</th>'+
+    [276,277,278].map(seed => '<th>RMSE · '+tr(["Seed ", "种子 "])+seed+'</th>').join("")+
+    '</tr></thead><tbody>'+alphas.map(alpha =>
+      '<tr class="'+(alpha === bestWeak.alpha ? "chosen" : "")+'"><td>'+alpha+'</td>'+
+      [276,277,278].map(seed => {
+        const result = sweep.find(row => row.alpha === alpha && row.seed === seed);
+        return '<td>'+(result ? result.rmse.toFixed(4) : "—")+'</td>';
+      }).join("")+'</tr>'
+    ).join("")+'</tbody></table></div>';
+
 }
 windowSelect.addEventListener("change", renderStudy);
 metricSelect.addEventListener("change", renderStudy);
