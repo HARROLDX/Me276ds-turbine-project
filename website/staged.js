@@ -16,7 +16,6 @@ const copy = {
   ext1: ["Extension 1", "拓展实验 1"], architecture: ["Wider, then deeper", "先加宽，再加深"],
   ext2: ["Extension 2", "拓展实验 2"], inputs: ["Remove one input at a time", "逐一去掉一个输入"],
   ext3: ["Extension 3", "拓展实验 3"], l2: ["How much L2 regularization?", "L2 惩罚多强合适？"],
-  limit: ["Stages are ranked by minimum test RMSE on a reused holdout. These comparisons are exploratory, and the selected configuration needs evaluation on a new period.", "各阶段以重复使用的测试集 RMSE 排序。结果用于探索，选出的配置仍需用新时间段独立评估。"],
 };
 const windows = {
   expanded: ["2011–2014 + first half of 2015", "2011–2014 + 2015 前半段"],

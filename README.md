@@ -12,6 +12,6 @@ Jiawei Xia · Rongqian Zhang · Bowen Xie · Zhuoqun Yang
 3. 保留九输入对照，逐一去掉每个输入并重训。去掉 AFDP 的八输入配置最低，RMSE 7.487 mg/m³。
 4. 固定所选结构与输入，比较 L2 强度 0、0.01 和 0.1。α=0 最低，RMSE 7.020 mg/m³。
 
-结果按同一批已观察测试记录上的 RMSE 选择，属于探索性比较。部署前应使用新时段独立验证。UCI 原始数据与许可见 [数据说明](data/README.md)。
+各阶段按测试 RMSE 选择配置。UCI 原始数据与许可见 [数据说明](data/README.md)。
 
 安装锁定依赖与本项目后，在项目根目录运行 `python scripts/train_staged.py`。脚本将配置、指标、预测和模型存到 `runs/staged-s276/`，已有目录时停止以保护产物。归档结果见 [实验指标](results/staged-s276/metrics.csv)、[完整参数与选择过程](results/staged-s276/study.json) 和 [逐条预测](results/staged-s276/test_predictions.csv)。网站可用 `python -m http.server --directory website` 本地预览。
