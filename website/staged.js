@@ -1,10 +1,11 @@
 "use strict";
+const $ = id => document.getElementById(id);
 const study = window.STAGED;
 const byId = Object.fromEntries(study.rows.map(row => [row.id, row]));
 const copy = {
   story: ["Can turbine sensors help monitor NOₓ?", "现有传感器能辅助监测 NOₓ 吗？"],
   motivation: ["A plant operator sees an unexpected NOₓ reading. A prediction from routine operating sensors could provide a second signal to investigate whether the change tracks the operating conditions.", "当电厂出现意外的 NOₓ 读数时，运行人员可以结合日常传感器给出的估计，检查变化是否和运行工况一致。"],
-  dataset: ["We chose UCI’s gas turbine dataset because it pairs measured emissions with nine usable operating and ambient inputs and preserves chronological order. It has 36,733 hourly aggregated records from one plant in northwestern Türkiye (2011–2015). CO is excluded from the inputs.", "UCI 数据同时提供实测排放、九项环境与运行输入和记录顺序，适合检验模型在后续工况上的表现。数据来自土耳其西北部一座电厂，覆盖 2011–2015 年，共 36,733 条小时聚合记录。CO 不作为输入。"],
+  dataset: ["We chose UCI’s gas turbine dataset because it pairs measured emissions with nine usable operating and ambient inputs and preserves chronological order. It has 36,733 hourly aggregated records from one plant in northwestern Türkiye (2011–2015). The dataset also records carbon monoxide (CO). The model uses nine ambient and operating readings to estimate NOₓ.", "UCI 数据同时提供实测排放、九项环境与运行输入和记录顺序，适合检验模型在后续工况上的表现。数据来自土耳其西北部一座电厂，覆盖 2011–2015 年，共 36,733 条小时聚合记录。数据也记录一氧化碳（CO）。模型仅用九项环境与机组读数估计 NOₓ。"],
   flow: ["Air intake → compression → combustion and turbine → exhaust monitoring", "进气 → 压缩 → 燃烧与涡轮 → 排气监测"],
   air: ["Air intake", "环境与进气"], compressor: ["Compressor", "压气机"],
   turbine: ["Combustion and turbine", "燃烧与涡轮"], exhaust: ["Exhaust measurement", "排气实测"],
