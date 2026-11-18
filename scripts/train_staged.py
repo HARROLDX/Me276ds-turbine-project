@@ -12,12 +12,11 @@ from nox_project.metrics import regression_metrics
 from nox_project.models import build_model
 
 ROOT = Path.cwd()
-MODELS = ("ols", "random_forest", "gradient_boosting", "mlp")
 SEED = 276
 
 
 def main():
-    out = ROOT / "runs/staged-s276"
+    out = ROOT / "runs/staged-four-architectures-s276"
     out.mkdir(parents=True, exist_ok=False)
     choices = json.loads((ROOT / "configs/fixed_models.json").read_text())
     history, early_2015 = load_development(ROOT)
@@ -55,19 +54,25 @@ def main():
     def winner(entries):
         return min(entries, key=lambda row: row["rmse"])
 
-    main_rows = [
-        evaluate("main", model, window, model, choices[model]["features"], choices[model]["params"])
-        for window in windows for model in MODELS
-    ]
+    # The main models and evaluation protocol are unchanged in this revision.
+    prior = ROOT / "results/staged-s276"
+    previous = json.loads((prior / "study.json").read_text())
+    main_rows = [row for row in previous["rows"] if row["stage"] == "main"]
+    baseline_predictions = pd.read_csv(prior / "test_predictions.csv")
+    if predictions[["row_id", "year"]].to_numpy().tolist() != baseline_predictions[["row_id", "year"]].to_numpy().tolist():
+        raise ValueError("Archived main predictions do not match the test rows")
+    for row in main_rows:
+        predictions[row["id"]] = baseline_predictions[row["id"]].to_numpy()
+    rows.extend(main_rows)
+    # Refit the complete structure and downstream comparisons.
     best_main = winner(main_rows)
-    # The downstream study is explicitly about MLP even if another family wins.
     mlp_base = winner([row for row in main_rows if row["model"] == "mlp"])
     window = mlp_base["window"]
     features = mlp_base["features"]
     architectures = [
         evaluate("architecture", label, window, "mlp", features,
                  {**mlp_base["params"], "hidden_layer_sizes": layers})
-        for label, layers in [("32", [32]), ("64", [64]), ("64x32", [64, 32])]
+        for label, layers in [("8", [8]), ("32", [32]), ("64", [64]), ("64x32", [64, 32])]
     ]
     best_arch = winner(architectures)
     removals = [

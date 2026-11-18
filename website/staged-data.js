@@ -9,7 +9,7 @@ window.STAGED = {
   },
   "best_main": "main_expanded_mlp",
   "mlp_base": "main_expanded_mlp",
-  "best_architecture": "architecture_expanded_32",
+  "best_architecture": "architecture_expanded_8",
   "best_inputs": "inputs_expanded_AFDP",
   "best_l2": "l2_expanded_off",
   "rows": [
@@ -347,6 +347,37 @@ window.STAGED = {
       "iterations": 107
     },
     {
+      "id": "architecture_expanded_8",
+      "stage": "architecture",
+      "label": "8",
+      "window": "expanded",
+      "model": "mlp",
+      "training_rows": 33041,
+      "features": [
+        "AT",
+        "AP",
+        "AH",
+        "AFDP",
+        "GTEP",
+        "TIT",
+        "TAT",
+        "TEY",
+        "CDP"
+      ],
+      "params": {
+        "alpha": 0.01,
+        "hidden_layer_sizes": [
+          8
+        ],
+        "learning_rate_init": 0.001
+      },
+      "train_rmse": 5.394248995711847,
+      "mae": 6.401750373647096,
+      "rmse": 7.860816518593266,
+      "r2": 0.18687978772056846,
+      "iterations": 232
+    },
+    {
       "id": "architecture_expanded_32",
       "stage": "architecture",
       "label": "32",
@@ -460,15 +491,15 @@ window.STAGED = {
       "params": {
         "alpha": 0.01,
         "hidden_layer_sizes": [
-          32
+          8
         ],
         "learning_rate_init": 0.001
       },
-      "train_rmse": 5.4009495321411265,
-      "mae": 6.812901528532234,
-      "rmse": 8.598277365825671,
-      "r2": 0.02715793897061969,
-      "iterations": 184
+      "train_rmse": 5.970268021825809,
+      "mae": 8.157821095906877,
+      "rmse": 9.669997487058197,
+      "r2": -0.2304732035976531,
+      "iterations": 180
     },
     {
       "id": "inputs_expanded_AP",
@@ -490,15 +521,15 @@ window.STAGED = {
       "params": {
         "alpha": 0.01,
         "hidden_layer_sizes": [
-          32
+          8
         ],
         "learning_rate_init": 0.001
       },
-      "train_rmse": 4.841959508076454,
-      "mae": 6.419636486470423,
-      "rmse": 8.19251683846144,
-      "r2": 0.11681004023202735,
-      "iterations": 248
+      "train_rmse": 5.4731386777855295,
+      "mae": 6.545524651540497,
+      "rmse": 8.073643072062358,
+      "r2": 0.14225433970827583,
+      "iterations": 104
     },
     {
       "id": "inputs_expanded_AH",
@@ -520,15 +551,15 @@ window.STAGED = {
       "params": {
         "alpha": 0.01,
         "hidden_layer_sizes": [
-          32
+          8
         ],
         "learning_rate_init": 0.001
       },
-      "train_rmse": 5.150319543230491,
-      "mae": 6.759132999799091,
-      "rmse": 8.837927766803409,
-      "r2": -0.027827736898158317,
-      "iterations": 196
+      "train_rmse": 5.631766287065678,
+      "mae": 6.232753802018549,
+      "rmse": 7.816198333960872,
+      "r2": 0.19608417119495236,
+      "iterations": 113
     },
     {
       "id": "inputs_expanded_AFDP",
@@ -550,15 +581,15 @@ window.STAGED = {
       "params": {
         "alpha": 0.01,
         "hidden_layer_sizes": [
-          32
+          8
         ],
         "learning_rate_init": 0.001
       },
-      "train_rmse": 5.029095428562317,
-      "mae": 6.050189386124611,
-      "rmse": 7.48728695829885,
-      "r2": 0.2623193453515551,
-      "iterations": 201
+      "train_rmse": 5.517409123547195,
+      "mae": 6.425430593287416,
+      "rmse": 7.799204215630009,
+      "r2": 0.19957614727599549,
+      "iterations": 148
     },
     {
       "id": "inputs_expanded_GTEP",
@@ -580,15 +611,15 @@ window.STAGED = {
       "params": {
         "alpha": 0.01,
         "hidden_layer_sizes": [
-          32
+          8
         ],
         "learning_rate_init": 0.001
       },
-      "train_rmse": 4.933517413156623,
-      "mae": 7.000678574847508,
-      "rmse": 9.104358316817203,
-      "r2": -0.09073216761176495,
-      "iterations": 194
+      "train_rmse": 5.370116850880095,
+      "mae": 6.603449523263668,
+      "rmse": 7.993568567822606,
+      "r2": 0.15918423260978976,
+      "iterations": 192
     },
     {
       "id": "inputs_expanded_TIT",
@@ -610,15 +641,15 @@ window.STAGED = {
       "params": {
         "alpha": 0.01,
         "hidden_layer_sizes": [
-          32
+          8
         ],
         "learning_rate_init": 0.001
       },
-      "train_rmse": 5.193053530267534,
-      "mae": 8.728394862711525,
-      "rmse": 10.428264156767945,
-      "r2": -0.43101269085880567,
-      "iterations": 136
+      "train_rmse": 5.775649563122167,
+      "mae": 8.832991091931515,
+      "rmse": 10.403330663718616,
+      "r2": -0.4241779023140724,
+      "iterations": 196
     },
     {
       "id": "inputs_expanded_TAT",
@@ -640,15 +671,15 @@ window.STAGED = {
       "params": {
         "alpha": 0.01,
         "hidden_layer_sizes": [
-          32
+          8
         ],
         "learning_rate_init": 0.001
       },
-      "train_rmse": 5.294314565519419,
-      "mae": 7.563577791136616,
-      "rmse": 9.658831079756107,
-      "r2": -0.22763307217308437,
-      "iterations": 270
+      "train_rmse": 6.079451293619724,
+      "mae": 7.850376878977766,
+      "rmse": 9.740589237699558,
+      "r2": -0.24850388141731838,
+      "iterations": 176
     },
     {
       "id": "inputs_expanded_TEY",
@@ -670,15 +701,15 @@ window.STAGED = {
       "params": {
         "alpha": 0.01,
         "hidden_layer_sizes": [
-          32
+          8
         ],
         "learning_rate_init": 0.001
       },
-      "train_rmse": 4.8520960901634815,
-      "mae": 7.2784337732025,
-      "rmse": 9.470064652195045,
-      "r2": -0.18011770444989184,
-      "iterations": 161
+      "train_rmse": 5.689126161909043,
+      "mae": 6.725072707620342,
+      "rmse": 8.198867994294394,
+      "r2": 0.11544014342510744,
+      "iterations": 91
     },
     {
       "id": "inputs_expanded_CDP",
@@ -700,15 +731,15 @@ window.STAGED = {
       "params": {
         "alpha": 0.01,
         "hidden_layer_sizes": [
-          32
+          8
         ],
         "learning_rate_init": 0.001
       },
-      "train_rmse": 4.789464761237882,
-      "mae": 6.8009365343300585,
-      "rmse": 8.804866253626713,
-      "r2": -0.020152186486598556,
-      "iterations": 163
+      "train_rmse": 5.533215194058674,
+      "mae": 6.877813437259569,
+      "rmse": 8.430699845710318,
+      "r2": 0.06470913390802469,
+      "iterations": 121
     },
     {
       "id": "l2_expanded_off",
@@ -730,15 +761,15 @@ window.STAGED = {
       "params": {
         "alpha": 0.0,
         "hidden_layer_sizes": [
-          32
+          8
         ],
         "learning_rate_init": 0.001
       },
-      "train_rmse": 5.087505147694577,
-      "mae": 5.621860879075884,
-      "rmse": 7.01969137217649,
-      "r2": 0.35158138437042186,
-      "iterations": 174
+      "train_rmse": 5.5165706504246765,
+      "mae": 6.4105859274770625,
+      "rmse": 7.7807492059873455,
+      "r2": 0.20335970068886522,
+      "iterations": 148
     },
     {
       "id": "l2_expanded_baseline",
@@ -760,15 +791,15 @@ window.STAGED = {
       "params": {
         "alpha": 0.01,
         "hidden_layer_sizes": [
-          32
+          8
         ],
         "learning_rate_init": 0.001
       },
-      "train_rmse": 5.029095428562317,
-      "mae": 6.050189386124611,
-      "rmse": 7.48728695829885,
-      "r2": 0.2623193453515551,
-      "iterations": 201
+      "train_rmse": 5.517409123547195,
+      "mae": 6.425430593287416,
+      "rmse": 7.799204215630009,
+      "r2": 0.19957614727599549,
+      "iterations": 148
     },
     {
       "id": "l2_expanded_strong",
@@ -790,15 +821,15 @@ window.STAGED = {
       "params": {
         "alpha": 0.1,
         "hidden_layer_sizes": [
-          32
+          8
         ],
         "learning_rate_init": 0.001
       },
-      "train_rmse": 5.184389181418342,
-      "mae": 6.2895730529235685,
-      "rmse": 7.777005010917097,
-      "r2": 0.2041262230191796,
-      "iterations": 132
+      "train_rmse": 5.543682308088119,
+      "mae": 6.495076049234561,
+      "rmse": 7.872814069012765,
+      "r2": 0.18439584846660106,
+      "iterations": 124
     }
   ]
 };
